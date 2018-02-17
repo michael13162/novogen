@@ -12,7 +12,7 @@ from keras.callbacks import History, ReduceLROnPlateau
 from keras.optimizers import Adam
 import numpy as np
 from data import preprocessing
-
+from matplotlib import pyplot as plt
 import os, pickle
 
 from rdkit import Chem
@@ -85,38 +85,38 @@ class nn:
             self.decoder.layers[i].set_weights(self.model.layers[i+6].get_weights())
         return
     
-    def load(self, preprocessing_instance):             
-        preprocessing_instance.load_charset() # Reload charset just incase
+    def load(self):             
+        preprocessing.load_charset() # Reload charset just incase
         self.model.load_weights("weights.h5") # Load weights
         self.model.compile(optimizer=Adam(lr=0.005), loss='categorical_crossentropy') # Compile model   
         self.create_encoder_and_decoder() # Create encoder / decoder 
         print("Loaded model from file.")
         return
     
-    def latent_to_smiles(self, latent, preprocessing_instance):
+    def latent_to_smiles(self, latent):
         states = self.latent_to_states_model.predict(latent)
         self.decoder.layers[1].reset_states(states=[states[0],states[1]])
 
-        startidx = preprocessing_instance.char_to_int["!"]
+        startidx = preprocessing.char_to_int["!"]
         samplevec = np.zeros((1,1,22))
         samplevec[0,0,startidx] = 1
         smiles = ""
         for i in range(50):
             o = self.decoder.predict(samplevec)
             sampleidx = np.argmax(o)
-            samplechar = preprocessing_instance.int_to_char[sampleidx]
+            samplechar = preprocessing.int_to_char[sampleidx]
             if samplechar != "E":
-                smiles = smiles + preprocessing_instance.int_to_char[sampleidx]
+                smiles = smiles + preprocessing.int_to_char[sampleidx]
                 samplevec = np.zeros((1,1,22))
                 samplevec[0,0,sampleidx] = 1
             else:
                 break
         return smiles
     
-    def generate(self, target=[], hit_rate=100, preprocessing_instance=None):
+    def generate(self, target=[], ratios=np.linspace(0,3,500)):
         
         if target != []:
-            target = preprocessing_instance.process_smiles(target)            
+            target = preprocessing.process_smiles(target)            
             for i in range(0, len(target)):
                 self.X_test[i] = target[i]
                         
@@ -128,12 +128,12 @@ class nn:
         for i in range(0, len(target)-1):  
             latent1 = x_latent[i:i+1] 
             latent0 = x_latent[i+2:i+3]        
-            for r in np.linspace(0,3,hit_rate):
+            for r in ratios:
                 rlatent = (1.0-r)*latent0 + r*latent1            
-                smiles  = self.latent_to_smiles(rlatent, preprocessing_instance)
+                smiles  = self.latent_to_smiles(rlatent)
                 mol = Chem.MolFromSmiles(smiles)
                 if mol and ((smiles in smiles_arr) == False):
-                    print(smiles, "adding to array!", "\n\n")
+                    print(smiles)
                     molecules.append(molecule(smiles))  
                     smiles_arr.append(smiles)       
                                           
@@ -176,5 +176,13 @@ class nn:
         self.model.fit([self.X_train, self.X_train], self.y_train,
                   epochs=self.num_epochs, batch_size=self.batch_size,
                   shuffle=True, callbacks=[h, rlr],
-                  validation_data=[[self.X_test, self.X_test], self.y_test])                
+                  validation_data=[[self.X_test, self.X_test], self.y_test])     
+        
+        if (show_loss == True):
+            # Show graph
+            plt.plot(h.history["loss"], label="Loss")
+            plt.plot(h.history["val_loss"], label="Val_Loss")
+            plt.yscale("log")
+            plt.legend()
+            plt.show()        
         return 

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, json
 from pymongo import MongoClient
 from model.gen import gen
-
+import random
 app = Flask(__name__)
 
 
@@ -12,7 +12,17 @@ def hello_world():
 
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    data = []
+    for i in range(0, 100):
+        data.append({
+            'molecule': 'Name ' + str(i + 1),
+            'logP': round(random.random(), 2),
+            'TPSA': round(random.random(), 2),
+            'molWeight': random.random() * 500,
+            'donors': int(random.random() * 5),
+            'acceptors': int(random.random() * 4),
+        })
+    return render_template('home.html', projects=data)
 
 @app.route('/upload')
 def uploadFile():
@@ -136,23 +146,22 @@ def project():
 @app.route('/api/project/upload', methods=['POST'])
 def upload():
     file = request.files['file']
-    print('request: ')
-    print(request)
-    print('file: ')
-    print(file)
     lines = list(file.read().splitlines())
+    print(lines)
     molecules = gen(lines)
+    print(molecules)
 
     res = {}
     for m in molecules:
-        molecule = {'log_p': m.log_p,
+        molecule = {'molecule': m.smiles,
+                    'log_p': m.log_p,
                     'tpsa': m.tpsa,
                     'num_h_donors': m.num_h_donors,
                     'num_h_acceptors': m.num_h_acceptors,
                     'molecular_weight': m.molecular_weight,
-                    'molecular_img': 'temp'}
+                    'molecular_img': m.molecular_img}
 
-        res[m.smiles] = molecule
+        res.append(molecule)
 
     '''
     projects = mongo_projects()
@@ -178,7 +187,8 @@ def upload():
     )
     '''
 
-    return render_template('home.html', json.dumps(res))
+    print(res)
+    return render_template('home.html', summary = json.dumps(res))
 
 
 if __name__ == '__main__':
