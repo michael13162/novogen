@@ -7,3 +7,4 @@ pandas
 sklearn
 h5py
 pymongo
+matplotlib
