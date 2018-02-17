@@ -9,6 +9,10 @@ def hello_world():
     return render_template('index.html')
 
 
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 SEED_DATA = [
     {
         'decade': '1970s',
