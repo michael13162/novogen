@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, json
 from pymongo import MongoClient
+from model.gen import gen
 
 app = Flask(__name__)
 
@@ -83,12 +84,70 @@ def user():
 
 @app.route('/api/project', methods=['GET'])
 def project():
-    return None
+    cookie = request.args.get('cookie', '')
+    users = mongo_users()
+    u = users.find_one({'user': cookie})
+
+    project_id = request.args.get('project_id', '')
+
+    if project_id not in u['projects']:
+        response = app.response_class(
+            response=json.dumps({'error_message': 'This user does not have permission to access this project'}),
+            status=200,
+            mimetype='application/json'
+        )
+
+        return response
+
+    projects = mongo_projects()
+    p = projects.find_one({'project_id': project_id})
+
+    if p is None:
+        response = app.response_class(
+            response=json.dumps({'error_message': 'This project does not exist'}),
+            status=400,
+            mimetype='application/json'
+        )
+
+        return response
+
+    response = app.response_class(
+        response=json.dumps({'molecules': p['molecules']}),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
 
 
 @app.route('/api/project/upload', methods=['POST'])
 def upload():
-    return None
+    file = request.files['file']
+    lines = list(file.read().splitlines())
+
+    projects = mongo_projects()
+
+    molecules = gen(lines)
+    project_id = projects.insert_one({'molecules': lines}).inserted_id
+
+    response = app.response_class(
+        response=json.dumps({'project_id': project_id,
+                             'molecules': molecules}),
+        status=200,
+        mimetype='application/json'
+    )
+
+    cookie = request.args.get('cookie', '')
+    users = mongo_users()
+    u = users.find_one({'user': cookie})
+    users.update(
+        {'_id': u['_id']},
+        {
+            '$push': {'projects': project_id}
+        }
+    )
+
+    return response
 
 
 if __name__ == '__main__':

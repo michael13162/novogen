@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="static/css/uikit.min.css" />
+        <script src="static/js/uikit.min.js"></script>
+        <script src="static/js/uikit-icons.min.js"></script>
+        <style>
+            .uk-navbar{
+                height:50px;
+                background: white !important;
+            }
+
+            .uk-navbar-nav > li > a{
+                font-family:'HelveticaNeue-UltraLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+                font-weight: 100;
+                font-size: 17px;
+                color: #00b8ff !important;
+                text-transform: lowercase
+            }
+
+            .uk-grid{
+                padding: 20px;
+            }
+
+            .row{
+                width:100%;
+            }
+        </style>
+    </head>
+    <body>
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="">novagen.ai</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="container">
+        <div class="uk-animation-fade row">
+
+            <div class="uk-grid container">
+                <div class="uk-width-1-10">...</div>
+                <div class="uk-width-1-10">...</div>
+                <div class="uk-width-1-10">...</div>
+                <div class="uk-width-1-10">...</div>
+                <div class="uk-width-1-10">...</div>
+                <div class="uk-width-1-10">...</div>
+                <div class="uk-width-1-10">...</div>
+            </div>
+        </div>
+
+    </div>
+    <script src="static/js/jquery-3.3.1.js" ></script>
+    <script src="static/js/particles.js"></script>
+    <script>
+        $(document).ready(function(){
+            resizeDiv();
+
+
+        });
+
+        window.onresize = function(event) {
+            resizeDiv();
+        }
+
+        function resizeDiv() {
+            vpw = $(window).width();
+            vph = $(window).height() - 100;
+            $('#container').css({'height': vph + 'px'});
+        }
+
+    </script>
+    </body>
+</html>
