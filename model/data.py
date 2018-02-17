@@ -31,8 +31,7 @@ class utils:
                 minLen = len(molecule)                                        
         return np.array(smiles)
     
-    def vectorize(self, smiles, preprocessing):
-    	print(smiles, "smiles!!")
+    def vectorize(self, smiles, preprocessing):    	
         one_hot =  np.zeros((smiles.shape[0], preprocessing.embed , len(preprocessing.charset)),dtype=np.int8)
         for i,smile in enumerate(smiles):
             one_hot[i,0,preprocessing.char_to_int["!"]] = 1
@@ -77,5 +76,5 @@ class preprocessing:
     
     def process_smiles(self, smiles):  
         smiles = np.array(smiles)
-        X_train, y_train = utils().vectorize(smiles)
+        X_train, y_train = utils().vectorize(smiles, self)
         return X_train
