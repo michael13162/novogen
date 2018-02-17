@@ -9,27 +9,6 @@ def hello_world():
     return render_template('index.html')
 
 
-SEED_DATA = [
-    {
-        'decade': '1970s',
-        'artist': 'Debby Boone',
-        'song': 'You Light Up My Life',
-        'weeksAtOne': 10
-    },
-    {
-        'decade': '1980s',
-        'artist': 'Olivia Newton-John',
-        'song': 'Physical',
-        'weeksAtOne': 10
-    },
-    {
-        'decade': '1990s',
-        'artist': 'Mariah Carey',
-        'song': 'One Sweet Day',
-        'weeksAtOne': 16
-    }
-]
-
 uri = 'mongodb://user:pass@ds123658.mlab.com:23658/novogen'
 
 
