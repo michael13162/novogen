@@ -8,25 +8,59 @@
         <script src="static/js/uikit.min.js"></script>
         <script src="static/js/uikit-icons.min.js"></script>
         <style>
+
+            body{
+                font-family:'HelveticaNeue-UltraLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+                background: #fdfdfd;
+            }
             .uk-navbar{
                 height:50px;
                 background: white !important;
             }
 
             .uk-navbar-nav > li > a{
-                font-family:'HelveticaNeue-UltraLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
                 font-weight: 100;
                 font-size: 17px;
                 color: #00b8ff !important;
                 text-transform: lowercase
             }
 
+            #container{
+                margin: 0px 33px;
+                width: 90%;
+            }
             .uk-grid{
-                padding: 20px;
+                padding: 10px;
             }
 
-            .row{
+            .rowHeader, .row{
                 width:100%;
+                height: 50px;
+            }
+
+            .rowHeader{
+                margin-bottom:25px;
+            }
+            .row{
+                background-color: white;
+                padding: 10px;
+                border-radius: 4px;
+                margin: 15px 0px;
+                height: 50px;
+            }
+
+{#            .width1{#}
+{#                width: 8%;#}
+{#            }#}
+{#            .width2{#}
+{#                width: 18%;#}
+{#            }#}
+            .width{
+                width: 11%
+            }
+
+            img.molecule{
+                height: 30px;
             }
         </style>
     </head>
@@ -40,16 +74,41 @@
     </nav>
 
     <div id="container">
-        <div class="uk-animation-fade row">
-
+        <div class="uk-animation-fade rowHeader">
             <div class="uk-grid container">
-                <div class="uk-width-1-10">...</div>
-                <div class="uk-width-1-10">...</div>
-                <div class="uk-width-1-10">...</div>
-                <div class="uk-width-1-10">...</div>
-                <div class="uk-width-1-10">...</div>
-                <div class="uk-width-1-10">...</div>
-                <div class="uk-width-1-10">...</div>
+                <div class="width uk-text-center ">Molecule</div>
+                <div class="width uk-text-center ">LogP</div>
+                <div class="width uk-text-center ">TPSA</div>
+                <div class="width uk-text-center ">Molecular weight</div>
+                <div class="width uk-text-center ">H Donors</div>
+                <div class="width uk-text-center ">H Acceptors</div>
+                <div class="width uk-text-center ">Chemical structure</div>
+            </div>
+        </div>
+
+        <div class="row uk-box-shadow-small uk-animation-toggle">
+            <div class="uk-grid container uk-animation-scale-up">
+                <div class="width uk-text-center ">asdasd</div>
+                <div class="width uk-text-center ">asd</div>
+                <div class="width uk-text-center ">asdads</div>
+                <div class="width uk-text-center ">asd</div>
+                <div class="width uk-text-center ">asdasdsad</div>
+                <div class="width uk-text-center ">asdasdas</div>
+                <div class="width uk-text-right ">sasdas dasdasd asd</div>
+            </div>
+        </div>
+
+        <div class="row uk-box-shadow-small uk-animation-toggle">
+            <div class="uk-grid container uk-animation-scale-down">
+                <div class="width uk-text-center ">asdasd</div>
+                <div class="width uk-text-center ">asd</div>
+                <div class="width uk-text-center ">asdads</div>
+                <div class="width uk-text-center ">asd</div>
+                <div class="width uk-text-center ">asdasdsad</div>
+                <div class="width uk-text-center ">asdasdas</div>
+                <div class="width uk-text-right ">
+                    <img class="molecule" src="static/img/molecule.png">
+                </div>
             </div>
         </div>
 
@@ -59,8 +118,6 @@
     <script>
         $(document).ready(function(){
             resizeDiv();
-
-
         });
 
         window.onresize = function(event) {
