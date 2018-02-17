@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, json
 from pymongo import MongoClient
-# from model.gen import gen
-import random
+from model.gen import gen
+
 app = Flask(__name__)
 
 
@@ -12,17 +12,7 @@ def hello_world():
 
 @app.route('/home')
 def home():
-    data = []
-    for i in range(0,100):
-        data.append({
-            'molecule': 'Name '+ str(i + 1),
-            'logP': round(random.random(), 2),
-            'TPSA': round(random.random(), 2),
-            'molWeight': random.random() * 500,
-            'donors': int(random.random() * 5),
-            'acceptors': int(random.random() * 4),
-        })
-    return render_template('home.html', projects = data)
+    return render_template('home.html')
 
 @app.route('/upload')
 def uploadFile():
@@ -147,6 +137,7 @@ def project():
 def upload():
     file = request.files['file']
     lines = list(file.read().splitlines())
+    print(lines)
     molecules = gen(lines)
 
     res = {}
@@ -184,8 +175,9 @@ def upload():
     )
     '''
 
+    print(res)
     return render_template('home.html', json.dumps(res))
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=80)

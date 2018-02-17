@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="../static/css/uikit.min.css"/>
     <script src="../static/js/uikit.min.js"></script>
     <script src="../static/js/uikit-icons.min.js"></script>
-    <!--<script src="../static/js/kekule.js"></script>-->
-    <!--<link rel="stylesheet" type="text/css" href="themes/default/kekule.css" />-->
+    <!--<script src="Three.js"></script>-->
+    <script src="../static/js/kekule.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/kekule.css" />
     <style>
 
         body {
@@ -139,7 +140,12 @@
             {
                 marginTop: "-=400px",
                 opacity: 1
-            }, 700, "swing")
+            }, 700, "swing");
+
+        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');
+        // or Kekule.IO.saveMimeData(mol, 'chemical/x-cml');
+        console.log(data);
+        console.log("hey");
     });
 
     window.onresize = function (event) {
