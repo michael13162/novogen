@@ -10,7 +10,7 @@ from data import preprocessing
 from model import nn
 
 # Load data from small data set
-X_train, y_train, X_test, y_test = preprocessing().load_data(file_name = "gdb11_size08.smi", load_char_set=True, pad=30)
+X_train, y_train, X_test, y_test = preprocessing().load_data()
 
 # Create & load model
 model = nn(X_train, y_train, X_test, y_test)
