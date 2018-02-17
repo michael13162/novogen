@@ -136,6 +136,10 @@ def project():
 @app.route('/api/project/upload', methods=['POST'])
 def upload():
     file = request.files['file']
+    print('request: ')
+    print(request)
+    print('file: ')
+    print(file)
     lines = list(file.read().splitlines())
     molecules = gen(lines)
 
