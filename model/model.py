@@ -112,7 +112,7 @@ class nn:
                 break
         return smiles
     
-    def generate(self, target=[], ratios=np.linspace(0,3,500), preprocessing_instance=None):
+    def generate(self, target=[], ratios=np.linspace(0,3,50), preprocessing_instance=None):
         
         if target != []:
             target = preprocessing_instance.process_smiles(target, preprocessing_instance)            

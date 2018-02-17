@@ -139,6 +139,9 @@ def upload():
     lines = list(file.read().splitlines())
     print(lines)
     molecules = gen(lines)
+    print('\n')
+    print(molecules)
+    print('\n')
 
     res = {}
     for m in molecules:
@@ -176,7 +179,7 @@ def upload():
     '''
 
     print(res)
-    return render_template('home.html', json.dumps(res))
+    return render_template('home.html', summary = json.dumps(res))
 
 
 if __name__ == '__main__':
