@@ -55,7 +55,7 @@
         }
 
         .width {
-            width: 11%
+            width: 10%
         }
 
         img.molecule {
@@ -112,65 +112,21 @@
         </div>
     </div>
 
-    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-        <div class="uk-grid container">
-            <div class="width uk-text-center" style="color: #00b8ff;">asdasd</div>
-            <div class="width uk-text-center ">asd</div>
-            <div class="width uk-text-center ">asdads</div>
-            <div class="width uk-text-center ">asd</div>
-            <div class="width uk-text-center ">asdasdsad</div>
-            <div class="width uk-text-center ">asdasdas</div>
-            <div class="width uk-text-right ">sasdas dasdasd asd</div>
-        </div>
-    </div>
-    <div class="moreInfo uk-card uk-card-default uk-card-body"></div>
-
-
-    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-        <div class="uk-grid container">
-            <div class="width uk-text-center " style="color: #00b8ff;">asdasd</div>
-            <div class="width uk-text-center ">asd</div>
-            <div class="width uk-text-center ">asdads</div>
-            <div class="width uk-text-center ">asd</div>
-            <div class="width uk-text-center ">asdasdsad</div>
-            <div class="width uk-text-center ">asdasdas</div>
-            <div class="width uk-text-right ">
-                <img class="molecule" src="../static/img/molecule.png">
+    {% for project in projects %}
+        <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
+            <div class="uk-grid container">
+                <div class="width uk-text-center" style="color: #00b8ff;">{{ project['molecule'] }}</div>
+                <div class="width uk-text-center ">{{ project['logP'] }}</div>
+                <div class="width uk-text-center ">{{ project['TPSA'] }}</div>
+                <div class="width uk-text-center ">{{ project['molWeight'] }}</div>
+                <div class="width uk-text-center ">{{ project['donors'] }}</div>
+                <div class="width uk-text-center ">{{ project['acceptors'] }}</div>
+                <div class="width uk-text-right "></div>
             </div>
         </div>
-    </div>
-    <div class="moreInfo uk-card uk-card-default uk-card-body"></div>
+        <div class="moreInfo uk-card uk-card-default uk-card-body"></div>
+    {% endfor %}
 
-
-    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-        <div class="uk-grid container">
-            <div class="width uk-text-center " style="color: #00b8ff;">asdasd</div>
-            <div class="width uk-text-center ">asd</div>
-            <div class="width uk-text-center ">asdads</div>
-            <div class="width uk-text-center ">asd</div>
-            <div class="width uk-text-center ">asdasdsad</div>
-            <div class="width uk-text-center ">asdasdas</div>
-            <div class="width uk-text-right ">
-                <img class="molecule" src="../static/img/molecule.png">
-            </div>
-        </div>
-    </div>
-    <div class="moreInfo uk-card uk-card-default uk-card-body"></div>
-
-
-    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-        <div class="uk-grid container">
-            <div class="width uk-text-center " style="color: #00b8ff;">asdasd</div>
-            <div class="width uk-text-center ">asd</div>
-            <div class="width uk-text-center ">asdads</div>
-            <div class="width uk-text-center ">asd</div>
-            <div class="width uk-text-center ">asdasdsad</div>
-            <div class="width uk-text-center ">asdasdas</div>
-            <div class="width uk-text-right ">
-                <img class="molecule" src="../static/img/molecule.png">
-            </div>
-        </div>
-    </div>
     <div class="moreInfo uk-card uk-card-default uk-card-body"></div>
 
 </div>
