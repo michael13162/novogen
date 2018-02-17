@@ -70,11 +70,11 @@ class preprocessing:
         
         preprocessing.embed = max([len(smile) for smile in data.smiles]) + pad
         
-        X_train, y_train = utils.vectorize(smiles_train.values)
-        X_test,y_test = utils.vectorize(smiles_test.values)
+        X_train, y_train = utils().vectorize(smiles_train.values)
+        X_test,y_test = utils().vectorize(smiles_test.values)
         return X_train, y_train, X_test, y_test
     
     def process_smiles(smiles):  
         smiles = np.array(smiles)
-        X_train, y_train = utils.vectorize(smiles)
+        X_train, y_train = utils().vectorize(smiles)
         return X_train
