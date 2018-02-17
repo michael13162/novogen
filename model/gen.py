@@ -27,7 +27,7 @@ target_molecules = ["CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C",
                     "CC12CC3CC(C1)(CC(C3)(C2)N)C", "CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O"]
 
 # Generate a molecule
-molecules = model.generate(target=target_molecules, p)
+molecules = model.generate(target=target_molecules, preprocessing_instance=p)
 
 for mol in molecules:
     mol.molecular_img.show()
