@@ -4,23 +4,11 @@
         <title>Title</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="static/css/uikit.min.css" />
-        <script src="static/js/uikit.min.js"></script>
-        <script src="static/js/uikit-icons.min.js"></script>
+        <link rel="stylesheet" href="../static/css/uikit.min.css" />
+        <link rel="stylesheet" href="../static/css/header.css" />
+        <script src="../static/js/uikit.min.js"></script>
+        <script src="../static/js/uikit-icons.min.js"></script>
         <style>
-            .uk-navbar{
-                height:50px;
-                background: white !important;
-            }
-
-            .uk-navbar-nav > li > a{
-                font-family:'HelveticaNeue-UltraLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
-                font-weight: 100;
-                font-size: 17px;
-                color: #00b8ff !important;
-                text-transform: lowercase
-            }
-
             .titleWrapper{
                 text-align: center;
                 vertical-align: middle;
@@ -49,7 +37,7 @@
         </style>
     </head>
     <body>
-    <nav class="uk-navbar-container" uk-navbar>
+    <nav class="uk-navbar-container uk-box-shadow-small" uk-navbar>
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
                 <li class="uk-active"><a href="">novagen.ai</a></li>
@@ -63,8 +51,8 @@
         </div>
         <div id="particles-js"></div>
     </div>
-    <script src="static/js/jquery-3.3.1.js" ></script>
-    <script src="static/js/particles.js"></script>
+    <script src="../static/js/jquery-3.3.1.js" ></script>
+    <script src="../static/js/particles.js"></script>
     <script>
         $(document).ready(function(){
             resizeDiv();

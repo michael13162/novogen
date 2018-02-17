@@ -1,0 +1,14 @@
+.uk-navbar{
+    height:50px;
+    background: white !important;
+}
+
+.uk-navbar-nav > li > a{
+    font-family:'HelveticaNeue-UltraLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+    font-weight: lighter;
+    font-size: 10px;
+    color: #00b8ff !important;
+    padding-right: 40px;
+    text-transform: lowercase
+}
+
