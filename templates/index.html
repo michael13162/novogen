@@ -9,32 +9,31 @@
         <script src="static/js/uikit-icons.min.js"></script>
     </head>
     <body>
-    <nav class="uk-navbar-container" uk-navbar>
+    <nav class="uk-navbar-container" uk-navbar style="height:50px">
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="">Novagen.AI</a></li>
+                <li class="uk-active"><a href="" style="
+    font-family:'HelveticaNeue-UltraLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;font-weight: 100;font-size: 30px;    color: #00b8ff;text-transform: lowercase ">novagen.ai</a></li>
             </ul>
         </div>
     </nav>
 
     <div id="container" class="uk-grid">
-        <div class="uk-column-1-1">
-            <div uk-vertical-align>
-                <text>
-                    A.I. for De Novo Drug Design
-                </text>
-            </div>
-            <div class="uk-vertical-align">
-                <div class="uk-vertical-align-middle">
-                ...
-                </div>
-            </div>
+        <div class="uk-width-1-1" style="text-align: center;vertical-align: middle;line-height: 525px;z-index: 0;height:0;">
+            <span style="
+    font-family:'HelveticaNeue-UltraLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;font-weight: 100;font-size: 55px;    color: #00b8ff; ">A.I. for De Novo Drug Design</span>
         </div>
+        <div id="particles-js" style="top: 0;height: auto;width: 100%;z-index: 1;position: relative;float: left;margin-left: 60px;margin-top: 10px;"></div>
     </div>
     <script src="static/js/jquery-3.3.1.js" ></script>
+    <script src="static/js/particles.js"></script>
     <script>
         $(document).ready(function(){
             resizeDiv();
+
+            particlesJS.load('particles-js', 'static/particles.json', function() {
+              console.log('callback - particles.js config loaded');
+            });
         });
 
         window.onresize = function(event) {
