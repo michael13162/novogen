@@ -10,7 +10,7 @@ from data import preprocessing
 from model import nn
 
 # Load data from small data set
-X_train, y_train, X_test, y_test = preprocessing().load_data(load_char_set=False)
+X_train, y_train, X_test, y_test = preprocessing().load_data()
 
 # Create & load model
 model = nn(X_train, y_train, X_test, y_test)
