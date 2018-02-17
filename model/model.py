@@ -11,12 +11,12 @@ from keras.layers import Input, LSTM, Dense, Concatenate
 #from keras.callbacks import History, ReduceLROnPlateau
 from keras.optimizers import Adam
 import numpy as np
-from data import preprocessing
+from model.data import preprocessing
 #from matplotlib import pyplot as plt
 #import os, pickle
 
 from rdkit import Chem
-from chem import molecule
+from model.chem import molecule
 
 class nn:
     def __init__(self, X_train, y_train, X_test, y_test):

@@ -6,7 +6,7 @@ Created on Fri Feb 16 20:29:55 2018
 @author: josharnold
 """
 
-from data import preprocessing
+from model.data import preprocessing
 from model import nn
 
 # Load data from small data set
