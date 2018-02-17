@@ -145,14 +145,15 @@ def upload():
 
     res = {}
     for m in molecules:
-        molecule = {'log_p': m.log_p,
+        molecule = {'molecule': m.smiles,
+                    'log_p': m.log_p,
                     'tpsa': m.tpsa,
                     'num_h_donors': m.num_h_donors,
                     'num_h_acceptors': m.num_h_acceptors,
                     'molecular_weight': m.molecular_weight,
-                    'molecular_img': 'temp'}
+                    'molecular_img': m.molecular_img}
 
-        res[m.smiles] = molecule
+        res.append(molecule)
 
     '''
     projects = mongo_projects()
