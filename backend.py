@@ -9,9 +9,11 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
+
 @app.route('/home')
 def home():
     return render_template('home.html')
+
 
 uri = 'mongodb://user:pass@ds123658.mlab.com:23658/novogen'
 
@@ -129,9 +131,16 @@ def upload():
     lines = list(file.read().splitlines())
     molecules = gen(lines)
 
-    res = {'molecules': []}
+    res = {}
     for m in molecules:
-        res['molecules'].append(m.smiles)
+        molecule = {'log_p': m.log_p,
+                    'tpsa': m.tpsa,
+                    'num_h_donors': m.num_h_donors,
+                    'num_h_acceptors': m.num_h_acceptors,
+                    'molecular_weight': m.molecular_weight,
+                    'molecular_img': 'temp'}
+
+        res[m.smiles] = molecule
 
     '''
     projects = mongo_projects()
