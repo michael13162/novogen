@@ -8,15 +8,14 @@ Created on Fri Feb 16 20:31:44 2018
 
 from keras.models import Model
 from keras.layers import Input, LSTM, Dense, Concatenate
-#from keras.callbacks import History, ReduceLROnPlateau
+from keras.callbacks import History, ReduceLROnPlateau
 from keras.optimizers import Adam
 import numpy as np
-from model.data import preprocessing
-#from matplotlib import pyplot as plt
-#import os, pickle
+from data import preprocessing
+import os, pickle
 
 from rdkit import Chem
-from model.chem import molecule
+from chem import molecule
 
 class nn:
     def __init__(self, X_train, y_train, X_test, y_test):
@@ -86,56 +85,98 @@ class nn:
         return
     
     def load(self):             
-        preprocessing.load_charset() # Reload charset just incase
+        preprocessing().load_charset() # Reload charset just incase
         self.model.load_weights("weights.h5") # Load weights
         self.model.compile(optimizer=Adam(lr=0.005), loss='categorical_crossentropy') # Compile model   
         self.create_encoder_and_decoder() # Create encoder / decoder 
         print("Loaded model from file.")
         return
     
-    def latent_to_smiles(self, latent):
+    def latent_to_smiles(self, latent, preprocessing_instance):
         states = self.latent_to_states_model.predict(latent)
         self.decoder.layers[1].reset_states(states=[states[0],states[1]])
 
-        startidx = preprocessing.char_to_int["!"]
+        startidx = preprocessing_instance.char_to_int["!"]
         samplevec = np.zeros((1,1,22))
         samplevec[0,0,startidx] = 1
         smiles = ""
         for i in range(50):
             o = self.decoder.predict(samplevec)
             sampleidx = np.argmax(o)
-            samplechar = preprocessing.int_to_char[sampleidx]
+            samplechar = preprocessing_instance.int_to_char[sampleidx]
             if samplechar != "E":
-                smiles = smiles + preprocessing.int_to_char[sampleidx]
+                smiles = smiles + preprocessing_instance.int_to_char[sampleidx]
                 samplevec = np.zeros((1,1,22))
                 samplevec[0,0,sampleidx] = 1
             else:
                 break
         return smiles
     
-    def generate(self, target=[], ratios=np.linspace(0,3,500)):
+    def generate(self, target=[], ratios=np.linspace(0,3,500), preprocessing_instance=None):
+        
         if target != []:
-            target = preprocessing.process_smiles(['NC=NC1CN1CO', 'CC1=CNCN2CC12'])            
+            target = preprocessing_instance.process_smiles(target, preprocessing_instance)            
             for i in range(0, len(target)):
                 self.X_test[i] = target[i]
                         
         x_latent = self.smiles_to_latent_model.predict(self.X_test)
             
-        # interpolate from first two
-        latent1 = x_latent[0:1] 
-        latent0 = x_latent[2:3]
-        
         molecules = []
         smiles_arr = []
         
-        # Ratio to determine randomness        
-        for r in ratios:
-            rlatent = (1.0-r)*latent0 + r*latent1            
-            smiles  = self.latent_to_smiles(rlatent)
-            mol = Chem.MolFromSmiles(smiles)
-            if mol and ((smiles in smiles_arr) == False):
-                print(smiles)
-                molecules.append(molecule(smiles))  
-                smiles_arr.append(smiles)       
+        for i in range(0, len(target)-1):
+
+            latent1 = x_latent[i:i+1] 
+            latent0 = x_latent[i+2:i+3]   
+
+            for r in ratios:
+                rlatent = (1.0-r)*latent0 + r*latent1            
+                smiles  = self.latent_to_smiles(rlatent, preprocessing_instance)
+                mol = Chem.MolFromSmiles(smiles)
+
+                if mol and ((smiles in smiles_arr) == False):
+                    print(smiles)
+                    molecules.append(molecule(smiles))  
+                    smiles_arr.append(smiles)       
                                           
-        return molecules
+        return molecules    
+    
+    def save(self, force_overwrite=False):        
+        if force_overwrite == False:
+            if os.path.exists("weights.h5"):
+                print("Uh oh. Path to model weights already exists :(")
+                return
+            
+        self.model.save_weights("weights.h5")
+        
+        with open('char_to_int.pkl', 'wb') as path:
+            pickle.dump(preprocessing().char_to_int, path)
+            
+        with open('int_to_char.pkl', 'wb') as path:
+            pickle.dump(preprocessing().int_to_char, path)
+        
+        print("Saved model to file.")
+        return
+    
+    def predict(self, num=10):
+        for i in range(num):
+            v = self.model.predict([self.X_test[i:i+1], self.X_test[i:i+1]]) #Can't be done as output not necessarely 1
+            idxs = np.argmax(v, axis=2)
+            pred=  "".join([preprocessing().int_to_char[h] for h in idxs[0]])[:-1]
+            idxs2 = np.argmax(self.X_test[i:i+1], axis=2)
+            true =  "".join([preprocessing().int_to_char[k] for k in idxs2[0]])[1:]
+            print(true, pred)
+        return
+    
+    def train(self, show_loss=True):
+        h = History()
+        rlr = ReduceLROnPlateau(monitor='val_loss', factor=0.5,patience=10, min_lr=0.000001, verbose=1, epsilon=1e-5)
+        
+        opt=Adam(lr=0.005) 
+        
+        self.model.compile(optimizer=opt, loss='categorical_crossentropy')
+        self.model.fit([self.X_train, self.X_train], self.y_train,
+                  epochs=self.num_epochs, batch_size=self.batch_size,
+                  shuffle=True, callbacks=[h, rlr],
+                  validation_data=[[self.X_test, self.X_test], self.y_test])             
+        return 

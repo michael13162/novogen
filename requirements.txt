@@ -1,0 +1,9 @@
+Flask
+tensorflow
+keras
+scikit-learn
+numpy
+pandas
+sklearn
+h5py
+pymongo

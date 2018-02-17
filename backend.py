@@ -127,7 +127,13 @@ def project():
 def upload():
     file = request.files['file']
     lines = list(file.read().splitlines())
+    molecules = gen(lines)
 
+    res = {'molecules': []}
+    for m in molecules:
+        res['molecules'].append(m.smiles)
+
+    '''
     projects = mongo_projects()
 
     molecules = gen(lines)
@@ -149,9 +155,10 @@ def upload():
             '$push': {'projects': project_id}
         }
     )
+    '''
 
-    return response
+    return render_template('home.html', json.dumps(res))
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=80)
