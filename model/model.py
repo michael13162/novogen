@@ -85,7 +85,7 @@ class nn:
         return
     
     def load(self):             
-        preprocessing.load_charset() # Reload charset just incase
+        preprocessing().load_charset() # Reload charset just incase
         self.model.load_weights("weights.h5") # Load weights
         self.model.compile(optimizer=Adam(lr=0.005), loss='categorical_crossentropy') # Compile model   
         self.create_encoder_and_decoder() # Create encoder / decoder 
@@ -96,16 +96,16 @@ class nn:
         states = self.latent_to_states_model.predict(latent)
         self.decoder.layers[1].reset_states(states=[states[0],states[1]])
 
-        startidx = preprocessing.char_to_int["!"]
+        startidx = preprocessing().char_to_int["!"]
         samplevec = np.zeros((1,1,22))
         samplevec[0,0,startidx] = 1
         smiles = ""
         for i in range(50):
             o = self.decoder.predict(samplevec)
             sampleidx = np.argmax(o)
-            samplechar = preprocessing.int_to_char[sampleidx]
+            samplechar = preprocessing().int_to_char[sampleidx]
             if samplechar != "E":
-                smiles = smiles + preprocessing.int_to_char[sampleidx]
+                smiles = smiles + preprocessing().int_to_char[sampleidx]
                 samplevec = np.zeros((1,1,22))
                 samplevec[0,0,sampleidx] = 1
             else:
@@ -115,7 +115,7 @@ class nn:
     def generate(self, target=[], ratios=np.linspace(0,3,500)):
         
         if target != []:
-            target = preprocessing.process_smiles(target)            
+            target = preprocessing().process_smiles(target)            
             for i in range(0, len(target)):
                 self.X_test[i] = target[i]
                         
@@ -147,10 +147,10 @@ class nn:
         self.model.save_weights("weights.h5")
         
         with open('char_to_int.pkl', 'wb') as path:
-            pickle.dump(preprocessing.char_to_int, path)
+            pickle.dump(preprocessing().char_to_int, path)
             
         with open('int_to_char.pkl', 'wb') as path:
-            pickle.dump(preprocessing.int_to_char, path)
+            pickle.dump(preprocessing().int_to_char, path)
         
         print("Saved model to file.")
         return
@@ -159,9 +159,9 @@ class nn:
         for i in range(num):
             v = self.model.predict([self.X_test[i:i+1], self.X_test[i:i+1]]) #Can't be done as output not necessarely 1
             idxs = np.argmax(v, axis=2)
-            pred=  "".join([preprocessing.int_to_char[h] for h in idxs[0]])[:-1]
+            pred=  "".join([preprocessing().int_to_char[h] for h in idxs[0]])[:-1]
             idxs2 = np.argmax(self.X_test[i:i+1], axis=2)
-            true =  "".join([preprocessing.int_to_char[k] for k in idxs2[0]])[1:]
+            true =  "".join([preprocessing().int_to_char[k] for k in idxs2[0]])[1:]
             print(true, pred)
         return
     
