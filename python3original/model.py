@@ -12,6 +12,7 @@ from keras.callbacks import History, ReduceLROnPlateau
 from keras.optimizers import Adam
 import numpy as np
 from data import preprocessing
+from matplotlib import pyplot as plt
 import os, pickle
 
 from rdkit import Chem
@@ -85,37 +86,37 @@ class nn:
         return
     
     def load(self):             
-        preprocessing().load_charset() # Reload charset just incase
-        self.model.load_weights("model/weights.h5") # Load weights
+        preprocessing.load_charset() # Reload charset just incase
+        self.model.load_weights("weights.h5") # Load weights
         self.model.compile(optimizer=Adam(lr=0.005), loss='categorical_crossentropy') # Compile model   
         self.create_encoder_and_decoder() # Create encoder / decoder 
         print("Loaded model from file.")
         return
     
-    def latent_to_smiles(self, latent, preprocessing_instance):
+    def latent_to_smiles(self, latent):
         states = self.latent_to_states_model.predict(latent)
         self.decoder.layers[1].reset_states(states=[states[0],states[1]])
 
-        startidx = preprocessing_instance.char_to_int["!"]
+        startidx = preprocessing.char_to_int["!"]
         samplevec = np.zeros((1,1,22))
         samplevec[0,0,startidx] = 1
         smiles = ""
         for i in range(50):
             o = self.decoder.predict(samplevec)
             sampleidx = np.argmax(o)
-            samplechar = preprocessing_instance.int_to_char[sampleidx]
+            samplechar = preprocessing.int_to_char[sampleidx]
             if samplechar != "E":
-                smiles = smiles + preprocessing_instance.int_to_char[sampleidx]
+                smiles = smiles + preprocessing.int_to_char[sampleidx]
                 samplevec = np.zeros((1,1,22))
                 samplevec[0,0,sampleidx] = 1
             else:
                 break
         return smiles
     
-    def generate(self, target=[], ratios=np.linspace(0,3,50), preprocessing_instance=None):
+    def generate(self, target=[], ratios=np.linspace(0,3,500)):
         
         if target != []:
-            target = preprocessing_instance.process_smiles(target, preprocessing_instance)            
+            target = preprocessing.process_smiles(target)            
             for i in range(0, len(target)):
                 self.X_test[i] = target[i]
                         
@@ -124,16 +125,13 @@ class nn:
         molecules = []
         smiles_arr = []
         
-        for i in range(0, len(target)-1):
-
+        for i in range(0, len(target)-1):  
             latent1 = x_latent[i:i+1] 
-            latent0 = x_latent[i+2:i+3]   
-
+            latent0 = x_latent[i+2:i+3]        
             for r in ratios:
                 rlatent = (1.0-r)*latent0 + r*latent1            
-                smiles  = self.latent_to_smiles(rlatent, preprocessing_instance)
+                smiles  = self.latent_to_smiles(rlatent)
                 mol = Chem.MolFromSmiles(smiles)
-
                 if mol and ((smiles in smiles_arr) == False):
                     print(smiles)
                     molecules.append(molecule(smiles))  
@@ -141,19 +139,19 @@ class nn:
                                           
         return molecules    
     
-    def save(self, force_overwrite=False):        
+    def save(self, force_overwrite=False, protocol=2):        
         if force_overwrite == False:
-            if os.path.exists("model/weights.h5"):
+            if os.path.exists("weights.h5"):
                 print("Uh oh. Path to model weights already exists :(")
                 return
             
-        self.model.save_weights("model/weights.h5")
+        self.model.save_weights("weights.h5")
         
         with open('char_to_int.pkl', 'wb') as path:
-            pickle.dump(preprocessing().char_to_int, path)
+            pickle.dump(preprocessing.char_to_int, path, protocol)
             
         with open('int_to_char.pkl', 'wb') as path:
-            pickle.dump(preprocessing().int_to_char, path)
+            pickle.dump(preprocessing.int_to_char, path, protocol)
         
         print("Saved model to file.")
         return
@@ -162,9 +160,9 @@ class nn:
         for i in range(num):
             v = self.model.predict([self.X_test[i:i+1], self.X_test[i:i+1]]) #Can't be done as output not necessarely 1
             idxs = np.argmax(v, axis=2)
-            pred=  "".join([preprocessing().int_to_char[h] for h in idxs[0]])[:-1]
+            pred=  "".join([preprocessing.int_to_char[h] for h in idxs[0]])[:-1]
             idxs2 = np.argmax(self.X_test[i:i+1], axis=2)
-            true =  "".join([preprocessing().int_to_char[k] for k in idxs2[0]])[1:]
+            true =  "".join([preprocessing.int_to_char[k] for k in idxs2[0]])[1:]
             print(true, pred)
         return
     
@@ -178,5 +176,13 @@ class nn:
         self.model.fit([self.X_train, self.X_train], self.y_train,
                   epochs=self.num_epochs, batch_size=self.batch_size,
                   shuffle=True, callbacks=[h, rlr],
-                  validation_data=[[self.X_test, self.X_test], self.y_test])             
+                  validation_data=[[self.X_test, self.X_test], self.y_test])     
+        
+        if (show_loss == True):
+            # Show graph
+            plt.plot(h.history["loss"], label="Loss")
+            plt.plot(h.history["val_loss"], label="Val_Loss")
+            plt.yscale("log")
+            plt.legend()
+            plt.show()        
         return 
