@@ -12,7 +12,6 @@ from keras.callbacks import History, ReduceLROnPlateau
 from keras.optimizers import Adam
 import numpy as np
 from data import preprocessing
-from matplotlib import pyplot as plt
 import os, pickle
 
 from rdkit import Chem
@@ -176,13 +175,5 @@ class nn:
         self.model.fit([self.X_train, self.X_train], self.y_train,
                   epochs=self.num_epochs, batch_size=self.batch_size,
                   shuffle=True, callbacks=[h, rlr],
-                  validation_data=[[self.X_test, self.X_test], self.y_test])     
-        
-        if (show_loss == True):
-            # Show graph
-            plt.plot(h.history["loss"], label="Loss")
-            plt.plot(h.history["val_loss"], label="Val_Loss")
-            plt.yscale("log")
-            plt.legend()
-            plt.show()        
+                  validation_data=[[self.X_test, self.X_test], self.y_test])             
         return 
