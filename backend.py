@@ -8,6 +8,9 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 uri = 'mongodb://user:pass@ds123658.mlab.com:23658/novogen'
 
