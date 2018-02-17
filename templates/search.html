@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+    <!--<script src="Three.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="../static/css/kekule.css"/>
+    <style>
+
+        body {
+            font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+            background: #fdfdfd;
+        }
+
+        .uk-navbar {
+            height: 50px;
+            background: white !important;
+        }
+
+        .uk-navbar-nav > li > a {
+            font-weight: 100;
+            font-size: 17px;
+            color: #00b8ff !important;
+            text-transform: lowercase
+        }
+
+        #container {
+            margin: 0px 33px;
+            width: 90%;
+        }
+
+        .uk-grid {
+            padding: 10px;
+        }
+
+        .rowHeader, .row {
+            width: 100%;
+            height: 50px;
+        }
+
+        .rowHeader {
+            margin-bottom: 25px;
+        }
+
+        .row {
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 15px 0px;
+            height: 50px;
+        }
+
+        .width {
+            width: 11%
+        }
+
+        img.molecule {
+            height: 30px;
+        }
+
+        .moleculeCard {
+            margin-top: 400px;
+            opacity: 0;
+            transition: transform .2s;
+            color: #666666;
+        }
+
+        .moleculeCard:hover {
+            transition: all .2s;
+            background-color: #e7e7e7;
+            transform: scale(1.1);
+            text-decoration: none !important;
+        }
+
+        .searchResult a:hover {
+            text-decoration: none;
+        }
+
+        .moreInfo {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+            /*opacity: .1;*/
+            display: none;
+            /*background-color: #57d8ff;*/
+        }
+
+        .searchResult {
+            width: 90%;
+            margin: auto;
+        }
+
+        /*.moreInfo:hover {*/
+        /*width: 100%;*/
+        /*height: 400px;*/
+        /*margin: 55px; !* inital margin - ((intial margin - width (or height))/2) *!*/
+        /*}*/
+    </style>
+</head>
+<body>
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="">novagen.ai</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="searchResult">
+    <a href="google.com">
+        <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
+            <div class="uk-grid container">
+                <div class="width uk-text-center" style="color: #00b8ff;">Some title</div>
+                <div class="width uk-text-center ">Some description</div>
+                <div class="width uk-text-center ">Some Other</div>
+            </div>
+        </div>
+    </a>
+
+</div>
+<script src="../static/js/jquery-3.3.1.js"></script>
+<script src="../static/js/particles.js"></script>
+<script>
+    $(document).ready(function () {
+        resizeDiv();
+        $(".moleculeCard").animate(
+            {
+                marginTop: "-=400px",
+                opacity: 1
+            }, 700, "swing");
+
+//        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');
+//        console.log(data);
+//        console.log("hey");
+    });
+
+    window.onresize = function (event) {
+        resizeDiv();
+    };
+
+    function resizeDiv() {
+        vpw = $(window).width();
+        vph = $(window).height() - 100;
+        $('#container').css({'height': vph + 'px'});
+    }
+
+</script>
+</body>
+</html>
