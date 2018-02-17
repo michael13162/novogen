@@ -9,9 +9,19 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
+
 @app.route('/home')
 def home():
     return render_template('home.html')
+
+@app.route('/upload')
+def uploadFile():
+    return render_template('upload.html')
+
+
+@app.route('/analytics')
+def analytics():
+    return render_template('analytics.html')
 
 uri = 'mongodb://user:pass@ds123658.mlab.com:23658/novogen'
 
@@ -127,7 +137,20 @@ def project():
 def upload():
     file = request.files['file']
     lines = list(file.read().splitlines())
+    molecules = gen(lines)
 
+    res = {}
+    for m in molecules:
+        molecule = {'log_p': m.log_p,
+                    'tpsa': m.tpsa,
+                    'num_h_donors': m.num_h_donors,
+                    'num_h_acceptors': m.num_h_acceptors,
+                    'molecular_weight': m.molecular_weight,
+                    'molecular_img': 'temp'}
+
+        res[m.smiles] = molecule
+
+    '''
     projects = mongo_projects()
 
     molecules = gen(lines)
@@ -149,8 +172,9 @@ def upload():
             '$push': {'projects': project_id}
         }
     )
+    '''
 
-    return response
+    return render_template('home.html', json.dumps(res))
 
 
 if __name__ == '__main__':
