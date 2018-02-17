@@ -149,9 +149,7 @@ def upload():
     lines = list(file.read().splitlines())
     print(lines)
     molecules = gen(lines)
-    print('\n')
     print(molecules)
-    print('\n')
 
     res = {}
     for m in molecules:

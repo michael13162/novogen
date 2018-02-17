@@ -19,15 +19,14 @@ def gen(target_molecules):
     model.load()
 
     # Molecules to use as a seed for generating
-    target_molecules = ['NC=NC1CN1CO', 'CC1=CNCN2CC12', 'FC1CCC1(F)C=C', 'CC1=COnnnn1']
+    # target_molecules = ['NC=NC1CN1CO', 'CC1=CNCN2CC12', 'FC1CCC1(F)C=C', 'CC1=COnnnn1']
 
-# Target Asprin, Cocaine, Dopamine & THC
-#target_molecules = ['CC(=O)OC1=CC=CC=C1C(=O)O', 'CN1C2CCC1C(C(C2)OC(=O)C3=CC=CC=C3)C(=O)OC','C1=CC(=C(C=C1CCN)O)O', 'CCCCCC1=CC2=C(C3C=C(CCC3C(O2)(C)C)C)C(=C1)O']
+    # Target Asprin, Cocaine, Dopamine & THC
+    #target_molecules = ['CC(=O)OC1=CC=CC=C1C(=O)O', 'CN1C2CCC1C(C(C2)OC(=O)C3=CC=CC=C3)C(=O)OC','C1=CC(=C(C=C1CCN)O)O', 'CCCCCC1=CC2=C(C3C=C(CCC3C(O2)(C)C)C)C(=C1)O']
 
-    #target_molecules = ["CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C", 
-                        #"CC12CC3CC(C1)(CC(C3)(C2)N)C", "CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O"]
+    #target_molecules = ["CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C", "CC12CC3CC(C1)(CC(C3)(C2)N)C", "CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O"]
 
-# Generate a molecule
+    # Generate a molecule
     molecules = model.generate(target=target_molecules, preprocessing_instance=p)
     return molecules
 
@@ -38,4 +37,4 @@ def gen(target_molecules):
 
 #gen(['COC1=C(C=C2C(=C1)CC(C2=O)CC3CCN(CC3)CC4=CC=CC=C4)OC', 'CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O', 'CC12CC3CC(C1)(CC(C3)(C2)N)C', 'CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C'])
 
-gen(None)
+#gen(None)
