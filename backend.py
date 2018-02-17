@@ -33,6 +33,20 @@ SEED_DATA = [
 uri = 'mongodb://user:pass@ds123658.mlab.com:23658/novogen'
 
 
+def mongo_users():
+    client = MongoClient(uri)
+    db = client['novogen']
+    users = db['users']
+    return users
+
+
+def mongo_projects():
+    client = MongoClient(uri)
+    db = client['novogen']
+    projects = db['projects']
+    return projects
+
+
 @app.route('/api/account/register', methods=['POST'])
 def register():
     credentials = request.get_json()
@@ -42,9 +56,7 @@ def register():
 
     cookie = int(username) + int(password)
 
-    client = MongoClient(uri)
-    db = client['novogen']
-    users = db['users']
+    users = mongo_users()
     registration = {'user': cookie,
                     'projects': []}
     registration_id = users.insert_one(registration).inserted_id
@@ -63,7 +75,31 @@ def register():
 def user():
     cookie = request.args.get('cookie', '')
 
-    return None
+    users = mongo_users()
+    u = users.find_one({'user': cookie})
+
+    if u is None:
+        response = app.response_class(
+            response=json.dumps({'error_message': 'This user does not exist'}),
+            status=400,
+            mimetype='application/json'
+        )
+
+        return response
+
+    res = {}
+    projects = mongo_projects()
+    for pid in u['projects']:
+        p = projects.find_one({'project': pid})
+        res[pid] = p['name']
+
+    response = app.response_class(
+        response=json.dumps(res),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
 
 
 @app.route('/api/project', methods=['GET'])
