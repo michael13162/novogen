@@ -40,7 +40,7 @@ class preprocessing:
     int_to_char = None
     embed = None
            
-    def load_data(self, file_name = "gdb11_size08.smi", load_char_set=True, pad=30):
+    def load_data(self, file_name = "model/gdb11_size08.smi", load_char_set=True, pad=30):
         data = pd.read_csv(file_name, delimiter = "\t", names = ["smiles","No","Int"])
         smiles_train, smiles_test = train_test_split(data["smiles"], random_state=42)  
         
@@ -59,10 +59,10 @@ class preprocessing:
         return X_train, y_train, X_test, y_test
 
     def load_charset(self):
-        if (os.path.exists("char_to_int.pkl") and os.path.exists("int_to_char.pkl")):
-            with open('char_to_int.pkl', 'rb') as path:
+        if (os.path.exists("model/char_to_int.pkl") and os.path.exists("model/int_to_char.pkl")):
+            with open('model/char_to_int.pkl', 'rb') as path:
                 self.char_to_int = pickle.load(path)            
-            with open('int_to_char.pkl', 'rb') as path:
+            with open('model/int_to_char.pkl', 'rb') as path:
                 self.int_to_char = pickle.load(path)
         return
     
