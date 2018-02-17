@@ -74,7 +74,7 @@ class preprocessing:
         X_test,y_test = utils().vectorize(smiles_test.values, self)
         return X_train, y_train, X_test, y_test
     
-    def process_smiles(self, smiles):  
+    def process_smiles(self, smiles, p):  
         smiles = np.array(smiles)
-        X_train, y_train = utils().vectorize(smiles, self)
+        X_train, y_train = utils().vectorize(smiles, p)
         return X_train

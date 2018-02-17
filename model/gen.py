@@ -10,7 +10,8 @@ from data import preprocessing
 from model import nn
 
 # Load data from small data set
-X_train, y_train, X_test, y_test = preprocessing().load_data()
+p = preprocessing()
+X_train, y_train, X_test, y_test = p.load_data()
 
 # Create & load model
 model = nn(X_train, y_train, X_test, y_test)
@@ -26,7 +27,7 @@ target_molecules = ["CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C",
                     "CC12CC3CC(C1)(CC(C3)(C2)N)C", "CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O"]
 
 # Generate a molecule
-molecules = model.generate(target=target_molecules)
+molecules = model.generate(target=target_molecules, p)
 
 for mol in molecules:
     mol.molecular_img.show()
