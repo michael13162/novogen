@@ -92,20 +92,20 @@ class nn:
         print("Loaded model from file.")
         return
     
-    def latent_to_smiles(self, latent):
+    def latent_to_smiles(self, latent, preprocessing_instance):
         states = self.latent_to_states_model.predict(latent)
         self.decoder.layers[1].reset_states(states=[states[0],states[1]])
 
-        startidx = preprocessing().char_to_int["!"]
+        startidx = preprocessing_instance.char_to_int["!"]
         samplevec = np.zeros((1,1,22))
         samplevec[0,0,startidx] = 1
         smiles = ""
         for i in range(50):
             o = self.decoder.predict(samplevec)
             sampleidx = np.argmax(o)
-            samplechar = preprocessing().int_to_char[sampleidx]
+            samplechar = preprocessing_instance.int_to_char[sampleidx]
             if samplechar != "E":
-                smiles = smiles + preprocessing().int_to_char[sampleidx]
+                smiles = smiles + preprocessing_instance.int_to_char[sampleidx]
                 samplevec = np.zeros((1,1,22))
                 samplevec[0,0,sampleidx] = 1
             else:
@@ -124,13 +124,16 @@ class nn:
         molecules = []
         smiles_arr = []
         
-        for i in range(0, len(target)-1):  
+        for i in range(0, len(target)-1):
+
             latent1 = x_latent[i:i+1] 
-            latent0 = x_latent[i+2:i+3]        
+            latent0 = x_latent[i+2:i+3]   
+
             for r in ratios:
                 rlatent = (1.0-r)*latent0 + r*latent1            
-                smiles  = self.latent_to_smiles(rlatent)
+                smiles  = self.latent_to_smiles(rlatent, preprocessing_instance)
                 mol = Chem.MolFromSmiles(smiles)
+
                 if mol and ((smiles in smiles_arr) == False):
                     print(smiles)
                     molecules.append(molecule(smiles))  
