@@ -60,15 +60,15 @@ class preprocessing:
         
         smiles_train, smiles_test = train_test_split(data["smiles"], random_state=42)  
         
-        preprocessing.charset = set("".join(list(data.smiles))+"!E")   
+        self.charset = set("".join(list(data.smiles))+"!E")   
         
-        preprocessing.char_to_int = dict((c,i) for i,c in enumerate(preprocessing.charset))
-        preprocessing.int_to_char = dict((i,c) for i,c in enumerate(preprocessing.charset))
+        self.char_to_int = dict((c,i) for i,c in enumerate(self.charset))
+        self.int_to_char = dict((i,c) for i,c in enumerate(self.charset))
         
         if (load_char_set==True):
-            preprocessing.load_charset()
+            self.load_charset()
         
-        preprocessing.embed = max([len(smile) for smile in data.smiles]) + pad
+        self.embed = max([len(smile) for smile in data.smiles]) + pad
         
         X_train, y_train = utils().vectorize(smiles_train.values)
         X_test,y_test = utils().vectorize(smiles_test.values)
