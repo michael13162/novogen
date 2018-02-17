@@ -56,7 +56,7 @@ class preprocessing:
         
     
     def load_data(self, load_char_set=True, pad=30): 
-        data = pd.read_csv("gdb11_size08.smi", delimiter = "\t", names = ["smiles","No","Int"])
+        data = pd.read_csv("model/gdb11_size08.smi", delimiter = "\t", names = ["smiles","No","Int"])
         
         smiles_train, smiles_test = train_test_split(data["smiles"], random_state=42)  
         

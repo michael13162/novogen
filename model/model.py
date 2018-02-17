@@ -86,7 +86,7 @@ class nn:
     
     def load(self):             
         preprocessing().load_charset() # Reload charset just incase
-        self.model.load_weights("weights.h5") # Load weights
+        self.model.load_weights("model/weights.h5") # Load weights
         self.model.compile(optimizer=Adam(lr=0.005), loss='categorical_crossentropy') # Compile model   
         self.create_encoder_and_decoder() # Create encoder / decoder 
         print("Loaded model from file.")
@@ -143,11 +143,11 @@ class nn:
     
     def save(self, force_overwrite=False):        
         if force_overwrite == False:
-            if os.path.exists("weights.h5"):
+            if os.path.exists("model/weights.h5"):
                 print("Uh oh. Path to model weights already exists :(")
                 return
             
-        self.model.save_weights("weights.h5")
+        self.model.save_weights("model/weights.h5")
         
         with open('char_to_int.pkl', 'wb') as path:
             pickle.dump(preprocessing().char_to_int, path)

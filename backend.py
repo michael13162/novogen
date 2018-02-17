@@ -136,11 +136,8 @@ def project():
 @app.route('/api/project/upload', methods=['POST'])
 def upload():
     file = request.files['file']
-    print('request: ')
-    print(request)
-    print('file: ')
-    print(file)
     lines = list(file.read().splitlines())
+    print(lines)
     molecules = gen(lines)
 
     res = {}
@@ -178,6 +175,7 @@ def upload():
     )
     '''
 
+    print(res)
     return render_template('home.html', json.dumps(res))
 
 
