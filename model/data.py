@@ -8,7 +8,7 @@ Created on Fri Feb 16 20:23:06 2018
 
 import pandas as pd
 import numpy as np
-import sys, os, pickle
+import os, pickle
 from sklearn.cross_validation import train_test_split
 
 class utils:
@@ -55,7 +55,7 @@ class preprocessing:
         return
         
     
-    def load_small_dataset(file_name = "gdb11_size08.smi", load_char_set=True):
+    def load_data(file_name = "gdb11_size08.smi", load_char_set=True, pad=30):
         data = pd.read_csv(file_name, delimiter = "\t", names = ["smiles","No","Int"])
         smiles_train, smiles_test = train_test_split(data["smiles"], random_state=42)  
         
@@ -67,37 +67,10 @@ class preprocessing:
         if (load_char_set==True):
             preprocessing.load_charset()
         
-        preprocessing.embed = max([len(smile) for smile in data.smiles]) + 5
+        preprocessing.embed = max([len(smile) for smile in data.smiles]) + pad
         
         X_train, y_train = utils.vectorize(smiles_train.values)
         X_test,y_test = utils.vectorize(smiles_test.values)
-        return X_train, y_train, X_test, y_test
-    
-    def load_data(size=sys.maxsize, pad=5, load_char_set=True):
-        print("Loading data...\n")
-        data = utils.load_csv(size)
-        
-        print("Creating smiles...\n")   
-        smiles = utils.extract_smiles(data)
-        
-        print("Creating train & test data...\n")
-        smiles_train, smiles_test = train_test_split(smiles, random_state=42)  
-        
-        preprocessing.charset = set("".join(list(smiles))+"!E")        
-        
-        preprocessing.char_to_int = dict((c,i) for i,c in enumerate(preprocessing.charset))
-        preprocessing.int_to_char = dict((i,c) for i,c in enumerate(preprocessing.charset))
-        
-        if (load_char_set==True):
-            preprocessing.load_charset()
-        
-        preprocessing.embed = max([len(smile) for smile in smiles]) + pad
-        
-        X_train, y_train = utils.vectorize(smiles_train)
-        X_test, y_test = utils.vectorize(smiles_test)
-        
-        print("Done!\n")  
-        
         return X_train, y_train, X_test, y_test
     
     def process_smiles(smiles):  
