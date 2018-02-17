@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../static/css/header.css"/>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+    <style>
+        .lightText {
+            color: rgb(188, 188, 188);
+        }
+    </style>
+</head>
+<body>
+<nav class="uk-navbar-container uk-box-shadow-small" uk-navbar style="background-color:rgb(255,255,255);">
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="">Novagen.AI</a></li>
+        </ul>
+    </div>
+
+
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li><a href="#">Upload</a></li>
+            <li><a class="uk-active" href="#">Projects</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+
+    </div>
+</nav>
+<div id="container" class="uk-grid" style="text-align:center; background-color:rgb(251, 251, 251);">
+    <div class="uk-width-1-1" style="margin-top:15%;">
+        <p class="lightText" style="font-size:40px;">Upload data</p>
+        <p class="lightText" style="font-weight: lighter; font-size:20px;">Upload biological targets for de novo drug
+            design</p>
+        <div class="js-upload" uk-form-custom>
+            <form id='sendGenes'
+                  method='post'
+                  action="http://"
+                  encType="multipart/form-data">
+                <input type="file" name="genes" multiple>
+            </form>
+            <button class="uk-button uk-button-default uk-box-shadow-medium" type="button" tabindex="-1"
+                    style="background-color:rgb(101, 207, 255); color:white; border-radius:10px;">Upload
+            </button>
+        </div>
+
+    </div>
+</div>
+<script src="../static/js/jquery-3.3.1.js"></script>
+<script>
+    $(document).ready(function () {
+        resizeDiv();
+    });
+
+    window.onresize = function (event) {
+        resizeDiv();
+    };
+
+    function resizeDiv() {
+        vpw = $(window).width();
+        vph = $(window).height() - 100;
+        $('#container').css({'height': vph + 'px'});
+    }
+
+</script>
+</body>
+</html>
