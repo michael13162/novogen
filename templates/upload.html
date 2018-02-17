@@ -59,10 +59,11 @@
             e.preventDefault();
 //           $("#sendGenes").submit();
             var file = $('#genes').prop('files');
-            $("#container").html("<div uk-spinner></div>");
+            $("#container").html("<div uk-spinner style='margin-top: 40%; margin-left: 45%;'></div>");
             $.ajax("api/project/upload", {
                 data: { "file": file},
                 method: "POST",
+                url: "api/project/upload",
                 contentType: "multipart/form-data",
                 success: function(data){
                     window.location.replace("/home.html?" + $.param(data));

@@ -65,7 +65,15 @@
         .moleculeCard {
             margin-top: 400px;
             opacity: 0;
+            width: 60%;
+            margin-left: 20%;
+            margin-right: 20%;
+            height: 125px;
             transition: transform .2s;
+            color: #666666;
+        }
+
+        .uk-grid {
             color: #666666;
         }
 
@@ -76,21 +84,12 @@
             text-decoration: none !important;
         }
 
-        .searchResult a:hover {
+        .moleculeCard a:hover {
             text-decoration: none;
         }
 
-        .moreInfo {
-            width: 100%;
-            height: 400px;
-            margin-bottom: 20px;
-            /*opacity: .1;*/
-            display: none;
-            /*background-color: #57d8ff;*/
-        }
-
         .searchResult {
-            width: 90%;
+            /*width: 60%;*/
             margin: auto;
         }
 
@@ -111,15 +110,13 @@
 </nav>
 
 <div class="searchResult">
-    <a href="google.com">
-        <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-            <div class="uk-grid container">
-                <div class="width uk-text-center" style="color: #00b8ff;">Some title</div>
-                <div class="width uk-text-center ">Some description</div>
-                <div class="width uk-text-center ">Some Other</div>
-            </div>
+    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
+        <div class="">
+            <a href="google.com"><div class="uk-text-left" style="color: #00b8ff;">Some title</div></a>
+            <div class="uk-text-center ">Some description</div>
+            <div class="uk-text-center ">Some Other</div>
         </div>
-    </a>
+    </div>
 
 </div>
 <script src="../static/js/jquery-3.3.1.js"></script>
