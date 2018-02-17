@@ -56,7 +56,9 @@ class preprocessing:
         
     
     def load_data(file_name = "gdb11_size08.smi", load_char_set=True, pad=30):
+    	print(file_name)
         data = pd.read_csv(file_name, delimiter = "\t", names = ["smiles","No","Int"])
+        print(data)
         smiles_train, smiles_test = train_test_split(data["smiles"], random_state=42)  
         
         preprocessing.charset = set("".join(list(data.smiles))+"!E")   
