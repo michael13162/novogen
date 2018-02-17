@@ -49,9 +49,9 @@ class preprocessing:
     def load_charset(self):
         if (os.path.exists("char_to_int.pkl") and os.path.exists("int_to_char.pkl")):
             with open('char_to_int.pkl', 'rb') as path:
-                preprocessing.char_to_int = pickle.load(path)            
+                self.char_to_int = pickle.load(path)            
             with open('int_to_char.pkl', 'rb') as path:
-                preprocessing.int_to_char = pickle.load(path)
+                self.int_to_char = pickle.load(path)
         return
         
     
