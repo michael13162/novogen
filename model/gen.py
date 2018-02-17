@@ -8,33 +8,34 @@ Created on Fri Feb 16 20:29:55 2018
 
 from data import preprocessing
 from model import nn
+import time
 
-def gen(target_molecules):
-    # Load data from small data set
-    p = preprocessing()
-    X_train, y_train, X_test, y_test = p.load_data()
+# Create preprocessing instance
+pp = preprocessing()
 
-    # Create & load model
-    model = nn(X_train, y_train, X_test, y_test)
-    model.load()
+# Load data from small data set
+X_train, y_train, X_test, y_test = pp.load_data()
 
-    # Molecules to use as a seed for generating
-    # target_molecules = ['NC=NC1CN1CO', 'CC1=CNCN2CC12', 'FC1CCC1(F)C=C', 'CC1=COnnnn1']
+# Create & load model
+model = nn(X_train, y_train, X_test, y_test)
+model.load(pp)
 
-    # Target Asprin, Cocaine, Dopamine & THC
-    #target_molecules = ['CC(=O)OC1=CC=CC=C1C(=O)O', 'CN1C2CCC1C(C(C2)OC(=O)C3=CC=CC=C3)C(=O)OC','C1=CC(=C(C=C1CCN)O)O', 'CCCCCC1=CC2=C(C3C=C(CCC3C(O2)(C)C)C)C(=C1)O']
+# Molecules to use as a seed for generating
+#target_molecules = ['NC=NC1CN1CO', 'CC1=CNCN2CC12', 'FC1CCC1(F)C=C', 'CC1=COnnnn1']
 
-    #target_molecules = ["CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C", "CC12CC3CC(C1)(CC(C3)(C2)N)C", "CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O"]
+# Target Asprin, Cocaine, Dopamine & THC
+#target_molecules = ['CC(=O)OC1=CC=CC=C1C(=O)O', 'CN1C2CCC1C(C(C2)OC(=O)C3=CC=CC=C3)C(=O)OC','C1=CC(=C(C=C1CCN)O)O', 'CCCCCC1=CC2=C(C3C=C(CCC3C(O2)(C)C)C)C(=C1)O']
 
-    # Generate a molecule
-    molecules = model.generate(target=target_molecules, preprocessing_instance=p)
-    return molecules
+target_molecules = ["CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C", 
+                    "CC12CC3CC(C1)(CC(C3)(C2)N)C", "CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O"]
 
-#for mol in molecules:
-#    mol.molecular_img.show()
+# Generate a molecule
+molecules = model.generate(target=target_molecules, preprocessing_instance=pp, hit_rate=200)
 
-# Parse molecules to json...?
-
-#gen(['COC1=C(C=C2C(=C1)CC(C2=O)CC3CCN(CC3)CC4=CC=CC=C4)OC', 'CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O', 'CC12CC3CC(C1)(CC(C3)(C2)N)C', 'CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C'])
-
-#gen(None)
+# Validation
+print("\n")
+print("Printing generated molecules...")
+print("\n")
+for mol in molecules:
+	print(mol.smiles)
+	time.sleep(0.15)
