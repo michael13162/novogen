@@ -32,6 +32,7 @@ class utils:
         return np.array(smiles)
     
     def vectorize(self, smiles):
+    	print(smiles, "smiles!!")
         one_hot =  np.zeros((smiles.shape[0], preprocessing.embed , len(preprocessing.charset)),dtype=np.int8)
         for i,smile in enumerate(smiles):
             one_hot[i,0,preprocessing.char_to_int["!"]] = 1
