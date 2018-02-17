@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Molecules</title>
+    <title>Search</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../static/css/uikit.min.css"/>
     <script src="../static/js/uikit.min.js"></script>
     <script src="../static/js/uikit-icons.min.js"></script>
     <!--<script src="Three.js"></script>-->
-    <script src="../static/js/kekule.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/kekule.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/kekule.css"/>
     <style>
 
         body {
@@ -56,7 +55,7 @@
         }
 
         .width {
-            width: 10%
+            width: 11%
         }
 
         img.molecule {
@@ -67,12 +66,18 @@
             margin-top: 400px;
             opacity: 0;
             transition: transform .2s;
+            color: #666666;
         }
 
         .moleculeCard:hover {
             transition: all .2s;
             background-color: #e7e7e7;
             transform: scale(1.1);
+            text-decoration: none !important;
+        }
+
+        .searchResult a:hover {
+            text-decoration: none;
         }
 
         .moreInfo {
@@ -82,6 +87,11 @@
             /*opacity: .1;*/
             display: none;
             /*background-color: #57d8ff;*/
+        }
+
+        .searchResult {
+            width: 90%;
+            margin: auto;
         }
 
         /*.moreInfo:hover {*/
@@ -100,35 +110,16 @@
     </div>
 </nav>
 
-<div style="width:90%;margin:auto;">
-    <div class="uk-animation-fade rowHeader">
-        <div class="uk-grid container">
-            <div class="width uk-text-center" style="color: #00b8ff">Molecule</div>
-            <div class="width uk-text-center ">LogP</div>
-            <div class="width uk-text-center ">TPSA</div>
-            <div class="width uk-text-center ">Molecular weight</div>
-            <div class="width uk-text-center ">Hydrogen <br/>Donors</div>
-            <div class="width uk-text-center ">Hyrdogen <br/>Acceptors</div>
-            <div class="width uk-text-center ">Chemical structure</div>
-        </div>
-    </div>
-
-    {% for project in projects %}
+<div class="searchResult">
+    <a href="google.com">
         <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
             <div class="uk-grid container">
-                <div class="width uk-text-center" style="color: #00b8ff;">{{ project['molecule'] }}</div>
-                <div class="width uk-text-center ">{{ project['logP'] }}</div>
-                <div class="width uk-text-center ">{{ project['TPSA'] }}</div>
-                <div class="width uk-text-center ">{{ project['molWeight'] }}</div>
-                <div class="width uk-text-center ">{{ project['donors'] }}</div>
-                <div class="width uk-text-center ">{{ project['acceptors'] }}</div>
-                <div class="width uk-text-right "></div>
+                <div class="width uk-text-center" style="color: #00b8ff;">Some title</div>
+                <div class="width uk-text-center ">Some description</div>
+                <div class="width uk-text-center ">Some Other</div>
             </div>
         </div>
-        <div class="moreInfo uk-card uk-card-default uk-card-body"></div>
-    {% endfor %}
-
-    <div class="moreInfo uk-card uk-card-default uk-card-body"></div>
+    </a>
 
 </div>
 <script src="../static/js/jquery-3.3.1.js"></script>
@@ -142,24 +133,14 @@
                 opacity: 1
             }, 700, "swing");
 
-        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');
-        // or Kekule.IO.saveMimeData(mol, 'chemical/x-cml');
-        console.log(data);
-        console.log("hey");
+//        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');
+//        console.log(data);
+//        console.log("hey");
     });
 
     window.onresize = function (event) {
         resizeDiv();
     };
-
-    $(".moleculeCard").on("click", function () {
-        $(this).next().slideToggle();
-//        $(this).next().animate(
-//            {
-//                height: "400px",
-//                display: "block"
-//            }, 1000, "swing")
-    });
 
     function resizeDiv() {
         vpw = $(window).width();
