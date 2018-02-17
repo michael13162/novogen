@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ae4f57d5-1963-4c26-95f9-729401094384" name="Default" comment="finishing the landing page.">
+    <list default="true" id="ae4f57d5-1963-4c26-95f9-729401094384" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/particles.json" afterPath="$PROJECT_DIR$/static/particles.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,7 +29,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
+            <state relative-caret-position="219">
               <caret line="63" column="30" lean-forward="false" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
               <folding />
             </state>
@@ -247,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518854141956</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="removing inline stlying.">
+      <created>1518854949342</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1518854949342</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="5">
@@ -296,7 +301,8 @@
     <MESSAGE value="adding gitignor." />
     <MESSAGE value="adding gitignore." />
     <MESSAGE value="finishing the landing page." />
-    <option name="LAST_COMMIT_MESSAGE" value="finishing the landing page." />
+    <MESSAGE value="removing inline stlying." />
+    <option name="LAST_COMMIT_MESSAGE" value="removing inline stlying." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -385,7 +391,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
+        <state relative-caret-position="219">
           <caret line="63" column="30" lean-forward="false" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
           <folding />
         </state>
