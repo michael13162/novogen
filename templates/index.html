@@ -46,7 +46,7 @@
     </nav>
 
     <div id="container" class="uk-grid">
-        <div class="uk-width-1-1">
+        <div class="uk-width-1-1 titleWrapper">
             <span class="title">A.I. for De Novo Drug Design</span>
         </div>
         <div id="particles-js"></div>
@@ -57,7 +57,7 @@
         $(document).ready(function(){
             resizeDiv();
 
-            particlesJS.load('particles-js', 'static/particles.json', function() {
+            particlesJS.load('particles-js', '../static/particles.json', function() {
               console.log('callback - particles.js config loaded');
             });
         });
