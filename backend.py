@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, json
 from pymongo import MongoClient
-from model.gen import gen
+#from model.gen import gen
 
 app = Flask(__name__)
 
@@ -14,6 +14,14 @@ def hello_world():
 def home():
     return render_template('home.html')
 
+@app.route('/upload')
+def uploadFile():
+    return render_template('upload.html')
+
+
+@app.route('/analytics')
+def analytics():
+    return render_template('analytics.html')
 
 uri = 'mongodb://user:pass@ds123658.mlab.com:23658/novogen'
 
@@ -170,4 +178,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=5000)
