@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, json, redirect
 from pymongo import MongoClient
-# from model.gen import gen
+from model.gen import gen
 import random
 import base64
 import cStringIO
@@ -223,4 +223,4 @@ def perform_query():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=80)
