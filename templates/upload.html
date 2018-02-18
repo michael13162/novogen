@@ -66,17 +66,38 @@
             fr.onload = function (e) {
                 console.log(fr.result);
                 $("#container").html("<div uk-spinner style='margin-top: 40%; margin-left: 45%;'></div>");
-                $.ajax({
-                    "method": "POST",
+
+
+                var settings = {
+                    "async": true,
                     "crossDomain": true,
-                    "processData": false,
+                    "url": "http://35.227.120.63/api/project/upload",
+                    "method": "POST",
                     "headers": {
                         "Content-Type": "application/json",
-                        "Cache-Control": "no-cache"
+                        "Cache-Control": "no-cache",
+                        "Postman-Token": "9b62d22f-a52e-69a4-729d-ae66392546dd"
                     },
-                    "data": {"file": "f"},
-                    "url": "api/project/upload"
-                })
+                    "processData": false,
+                    "data": "{\n\t\"file\": \"fZS4=\"\n}"
+                };
+
+                $.ajax(settings).done(function (response) {
+                    window.location.replace("/home.html?" + $.param(response));
+                });
+
+
+//                $.ajax({
+//                    "method": "POST",
+//                    "crossDomain": true,
+//                    "processData": false,
+//                    "headers": {
+//                        "Content-Type": "application/json",
+//                        "Cache-Control": "no-cache"
+//                    },
+//                    "data": {"file": "f"},
+//                    "url": "api/project/upload"
+//                })
             };
         });
     });
