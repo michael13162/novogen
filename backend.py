@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, json
 from pymongo import MongoClient
-# from model.gen import gen
+from model.gen import gen
 import random
 import base64
 import cStringIO
-# from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch
 
-# es = Elasticsearch()
+es = Elasticsearch()
 app = Flask(__name__)
 
 
@@ -205,4 +205,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=80)
