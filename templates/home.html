@@ -98,7 +98,6 @@
     </style>
 </head>
 <body>
-<div id="parent"></div>
 <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
@@ -109,7 +108,7 @@
 
 <div style="width:90%;margin:auto;">
     <div class="uk-animation-fade rowHeader">
-        <div class="uk-grid container" style="padding:0px">
+        <div class="uk-grid container" style="padding:0px;height: 100px;">
             <div class="widercol uk-text-center" style="color: #00b8ff">Molecule</div>
             <div class="width uk-text-center ">LogP</div>
             <div class="width uk-text-center ">Molecular weight</div>
@@ -121,7 +120,7 @@
 
     {% for project in projects %}
         <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-            <div class="uk-grid container" style="padding:0px">
+            <div class="uk-grid container" style="padding:0px;height: 100px;">
                 <div class="widercol uk-text-center" style="color: #00b8ff;">{{ project['molecule'] }}</div>
                 <div class="width uk-text-center ">{{ project['log_p'] }}</div>
                 <div class="width uk-text-center ">{{ project['molecular_weight'] }}</div>
@@ -145,6 +144,7 @@
     {% endfor %}
 
     <div class="moreInfo uk-card uk-card-default uk-card-body"></div>
+    <div id="parent" style="height: 800px; width: 600px;"></div>
 
 </div>
 <script src="../static/js/jquery-3.3.1.js"></script>
