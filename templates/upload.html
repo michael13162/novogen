@@ -55,8 +55,20 @@
 <script>
     $(document).ready(function () {
         resizeDiv();
-        $("#genes").on("change", function(){
-           $("#sendGenes").submit();
+        $("#genes").on("change", function(e){
+            e.preventDefault();
+//           $("#sendGenes").submit();
+            var file = $('#genes').prop('files');
+            $("#container").html("<div uk-spinner style='margin-top: 40%; margin-left: 45%;'></div>");
+            $.ajax({
+                data: { "file": file},
+                method: "POST",
+                url: "api/project/upload",
+                contentType: "multipart/form-data",
+                success: function(data){
+                    window.location.replace("/home.html?" + $.param(data));
+                }
+            })
         });
     });
 

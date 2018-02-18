@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, json
 from pymongo import MongoClient
 # from model.gen import gen
 import random
+import base64
+import cStringIO
 app = Flask(__name__)
 
 
@@ -149,20 +151,22 @@ def upload():
     lines = list(file.read().splitlines())
     print(lines)
     molecules = gen(lines)
-    print('\n')
     print(molecules)
-    print('\n')
 
-    res = {}
+    res = []
     for m in molecules:
-        molecule = {'log_p': m.log_p,
+        buffered = cStringIO.StringIO()
+        m.molecular_img.save(buffered, format='PNG')
+        img_str = base64.b64encode(buffered.getvalue())
+        molecule = {'molecule': m.smiles,
+                    'log_p': m.log_p,
                     'tpsa': m.tpsa,
                     'num_h_donors': m.num_h_donors,
                     'num_h_acceptors': m.num_h_acceptors,
                     'molecular_weight': m.molecular_weight,
-                    'molecular_img': 'temp'}
+                    'molecular_img': img_str}
 
-        res[m.smiles] = molecule
+        res.append(molecule)
 
     '''
     projects = mongo_projects()
