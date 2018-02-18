@@ -62,24 +62,20 @@
             var input = $('#genes')[0];
             var file = input.files[0];
             fr = new FileReader();
-            fr.readAsDataURL(file);
+//            fr.readAsDataURL(file);
+            fr.readAsText(file);
             fr.onload = function (e) {
-                console.log(fr.result);
-                $("#container").html("<div uk-spinner style='margin-top: 40%; margin-left: 45%;'></div>");
+                console.log(fr.result.split('\n'));
+                $("#container").html("<div uk-spinner style='margin-top: 10%; margin-left: 45%;'></div>");
 
 
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "http://35.227.120.63/api/project/upload",
+                    "url": "api/project/upload",
                     "method": "POST",
-                    "headers": {
-                        "Content-Type": "application/json",
-                        "Cache-Control": "no-cache",
-                        "Postman-Token": "9b62d22f-a52e-69a4-729d-ae66392546dd"
-                    },
                     "processData": false,
-                    "data": {"file": "fZS4"}
+                    "data": JSON.stringify({"file": fr.result.split('\n')})
                 };
 
                 $.ajax(settings).done(function (response) {
