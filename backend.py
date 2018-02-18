@@ -4,7 +4,7 @@ from model.gen import gen
 import random
 import base64
 import cStringIO
-# import elastic
+import elastic
 
 
 app = Flask(__name__)
