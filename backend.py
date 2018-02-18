@@ -168,7 +168,10 @@ def upload():
                     'num_h_donors': m.num_h_donors,
                     'num_h_acceptors': m.num_h_acceptors,
                     'molecular_weight': m.molecular_weight,
-                    'molecular_img': img_str}
+                    'molecular_img': img_str
+                    '': 
+                    }
+                    
 
         res['json'].append(molecule)
 
