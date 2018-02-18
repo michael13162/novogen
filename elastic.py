@@ -47,8 +47,8 @@ def ingest_scrape(f):
             return
             '''
 
-            text = molecule.disease + ' ' + molecule.drug_name + ' ' + molecule.smiles + ' ' + molecule.molecule_name
-            insert = '{"text": "' + text + '", "smiles": "' + molecule.smiles + '", "disease": "' + molecule.disease + '", "drug_name": "' + molecule.drug_name + '", "molecule_name": "' + molecule.molecule_name + '"}'
+            text = molecule.disease + ' ' + molecule.drug_name + ' ' + molecule.smiles.strip() + ' ' + molecule.molecule_name
+            insert = '{"text": "' + text + '", "smiles": "' + molecule.smiles.strip() + '", "disease": "' + molecule.disease + '", "drug_name": "' + molecule.drug_name + '", "molecule_name": "' + molecule.molecule_name + '"}'
             print(insert)
             ret = es.index(index='novogen', doc_type='molecules', id=i, body=json.loads(insert))
             print(ret)
@@ -65,17 +65,18 @@ def perform_query(text):
           }
         })
 
+    print('ret' + str(ret))
     hits = {}
     for hit in ret['hits']['hits']:
+        print('hit' + str(hit))
         hits[hit['_source']['smiles']] = {'score': hit['_score'],
-                                          'disease': hit['disease'],
-                                          'drug_name': hit['drug_name'],
-                                          'molecule_name': hit['molecule_name']}
+                                          'disease': hit['_source']['disease'],
+                                          'drug_name': hit['_source']['drug_name'],
+                                          'molecule_name': hit['_source']['molecule_name']}
 
     return sorted(hits.iteritems(), key=lambda (k,v): (v['score'],k), reverse=True)
 
 
-#ingest_scrape()
-write_pickle()
-ingest_scrape('test.pkl')
-print(perform_query('drug'))
+#write_pickle()
+ingest_scrape('RESULT.pkl')
+#print(perform_query('cold'))

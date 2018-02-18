@@ -1,29 +1,52 @@
 (lp0
-(lp1
-S'this drug causes cancer'
-p2
-aS'LELFJOILW'
+(imodel.scrape
+Molecule
+p1
+(dp2
+S'drug_name'
 p3
-aS'disease A'
+S'drug_a'
 p4
-aS'description A'
+sS'molecule_name'
 p5
-aa(lp6
-S'this is also a drug'
+S'test'
+p6
+sS'disease'
 p7
-aS'LWLWOJ42'
+S'cancer'
 p8
-aS'disease B'
+sS'smiles'
 p9
-aS'description B'
+S'SLFKJDL'
 p10
-aa(lp11
-S'test druggggg'
-p12
-aS'LKJFELKL'
+sba(imodel.scrape
+Molecule
+p11
+(dp12
+g3
+S'drug_b'
 p13
-aS'disease C'
+sg5
+g6
+sg7
+S'allgeries'
 p14
-aS'description C'
+sg9
+S'lLKEJLKEJ'
 p15
-aa.
+sba(imodel.scrape
+Molecule
+p16
+(dp17
+g3
+S'drug_c'
+p18
+sg5
+g6
+sg7
+S'cold'
+p19
+sg9
+S'SLLKD'
+p20
+sba.
