@@ -187,9 +187,9 @@
         resizeDiv();
         move = true;
         var chosenSmilesNames = [];
-        $("#molResults").on("click", "#molResults div", function() {
-            var drugName = $(this).find(".drugName").text();
-
+        $("#molResults").on("click", ".drugName", function() {
+            var drugName = $(this).text();
+            console.log(drugName);
             if (drugName != "" && !(chosenSmilesNames.includes(drugName))) {
                 $("#chosenMols").prepend('<div class="chosenResult uk-background-primary uk-padding uk-panel" id="' + drugName + '">' + drugName + '</div>');
                 chosenSmilesNames.push(drugName);
