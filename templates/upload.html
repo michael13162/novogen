@@ -75,7 +75,7 @@
                     "url": "api/project/upload",
                     "method": "POST",
                     "processData": false,
-                    "data": JSON.stringify({"file": fr.result.split('\n')})
+                    "data": JSON.stringify({"file": fr.result.split('\r\n')})
                 };
 
                 $.ajax(settings).done(function (response) {
