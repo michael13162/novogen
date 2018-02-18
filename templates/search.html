@@ -231,7 +231,7 @@
             $.ajax(settings).done(function (response) {
                 $("#molResults").html("");
                 for (var i = 0; i < response.length; i++) {
-                        $('#molResults').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'searchWrapper\'>            <a href=\'#\'>                <div class="uk-text-left smile" style=\'color: #00b8ff;\'>' + response[0] + '</div>            </a>            <div class="uk-text-left disease">' + response[1].disease + '</div>            <div class="uk-text-left drugName">' + response[1].drug_name + '</div>        </div>\n' + '    </div>');
+                        $('#molResults').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'searchWrapper\'>            <a href=\'#\'>                <div class="uk-text-left smile" style=\'color: #00b8ff;\'>' + response[i][0] + '</div>            </a>            <div class="uk-text-left disease">' + response[i][1].disease + '</div>            <div class="uk-text-left drugName">' + response[i][1].drug_name + '</div>        </div>\n' + '    </div>');
                         console.log("hit " + i);
                 }
 //                $('.moleculeCard').css('marginTop', '+=400px');
