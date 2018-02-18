@@ -52,7 +52,7 @@
             padding: 10px;
             border-radius: 4px;
             margin: 15px 0px;
-            height: 100px;
+            height: 50px;
         }
 
         .width {
@@ -62,7 +62,7 @@
 
 
 	.widercol{
-		width:23%;
+		width:18%;
 	}
 
         img.molecule {
@@ -104,6 +104,13 @@
             <li class="uk-active"><a href="">novagen.ai</a></li>
         </ul>
     </div>
+	
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li><a href="upload">Upload</a></li>
+	    <li><a href="search">Search</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div style="width:90%;margin:auto;">
@@ -126,7 +133,7 @@
                 <div class="width uk-text-center ">{{ project['molecular_weight'] }}</div>
                 <div class="width uk-text-center ">{{ project['num_h_donors'] }}</div>
                 <div class="width uk-text-center ">{{ project['num_h_acceptors'] }}</div>
-                <div class="widercol uk-text-right " style="padding: 0px"><img src="data:image/gif;base64,{{ project['molecular_img'] }}" style="padding: 0;transform: translate(6%, -30%);height: 53%;object-position: center;;"></div>
+                <div class="width uk-text-right " style="padding: 0px"><img src="data:image/gif;base64,{{ project['molecular_img'] }}"></div>
             </div>
         </div>
         <div class="moreInfo uk-card uk-card-default uk-card-body">
