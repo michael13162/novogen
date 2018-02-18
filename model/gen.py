@@ -19,6 +19,15 @@ def gen(target_molecules):
     # Create & load model
     model = nn(X_train, y_train, X_test, y_test)
     model.load(pp)
+    
+    # Remove non characters
+    for mol in target_molecules:
+        for char in mol:
+            if char in pp.charset:
+                print("We good.")
+            else:
+                mol = mol.replace(char, '')
+                print("Oopps. Removing bad char:", char)
 
     # Molecules to use as a seed for generating
     #target_molecules = ['NC=NC1CN1CO', 'CC1=CNCN2CC12', 'FC1CCC1(F)C=C', 'CC1=COnnnn1']
