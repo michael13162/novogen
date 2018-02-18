@@ -155,7 +155,7 @@
         resizeDiv();
         move = true;
         var lastChange = Date.now();
-        $("#searchBar").on("change", function () {
+        $("#searchBar").on("input", function () {
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -176,8 +176,13 @@
                 console.log("look!");
                 console.log(response);
                 for(var i=0;i<response.length;i++){
-                    $('#searchResults').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'\'>            <a href=\'http://www.google.com\'>                <div class=\'uk-text-left\' style=\'color: #00b8ff;\'>'+ response[0]+'</div>            </a>            <div class=\'uk-text-left\'>'+response[1].disease+'</div>            <div class=\'uk-text-left\'>' + response[1].drug_name +'</div>        </div>\n' + '    </div>');
+                   $('.searchResult').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'\'>            <a href=\'http://www.google.com\'>                <div class=\'uk-text-left\' style=\'color: #00b8ff;\'>'+ response[0][0]+'</div>            </a>            <div class=\'uk-text-left\'>'+response[0][1].disease+'</div>            <div class=\'uk-text-left\'>' + response[0][1].drug_name +'</div>        </div>\n' + '    </div>');
                 }
+
+		$('.moleculeCard').animate({
+			marginTop: '-=400px',
+			opacity: 1
+		}, 700, 'swing');
             });
         });
 //        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');

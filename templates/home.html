@@ -56,8 +56,14 @@
         }
 
         .width {
-            width: 10%
+        	padding: 10px;
+	    	width: 10%;
         }
+
+
+	.widercol{
+		width:18%;
+	}
 
         img.molecule {
             height: 30px;
@@ -103,10 +109,9 @@
 
 <div style="width:90%;margin:auto;">
     <div class="uk-animation-fade rowHeader">
-        <div class="uk-grid container">
-            <div class="width uk-text-center" style="color: #00b8ff">Molecule</div>
+        <div class="uk-grid container" style="padding:0px">
+            <div class="widercol uk-text-center" style="color: #00b8ff">Molecule</div>
             <div class="width uk-text-center ">LogP</div>
-            <div class="width uk-text-center ">TPSA</div>
             <div class="width uk-text-center ">Molecular weight</div>
             <div class="width uk-text-center ">Hydrogen <br/>Donors</div>
             <div class="width uk-text-center ">Hyrdogen <br/>Acceptors</div>
@@ -116,14 +121,13 @@
 
     {% for project in projects %}
         <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-            <div class="uk-grid container">
-                <div class="width uk-text-center" style="color: #00b8ff;">{{ project['molecule'] }}</div>
+            <div class="uk-grid container" style="padding:0px">
+                <div class="widercol uk-text-center" style="color: #00b8ff;">{{ project['molecule'] }}</div>
                 <div class="width uk-text-center ">{{ project['log_p'] }}</div>
-                <div class="width uk-text-center ">{{ project['tpsa'] }}</div>
                 <div class="width uk-text-center ">{{ project['molecular_weight'] }}</div>
                 <div class="width uk-text-center ">{{ project['num_h_donors'] }}</div>
                 <div class="width uk-text-center ">{{ project['num_h_acceptors'] }}</div>
-                <div class="width uk-text-right "><img src="data:image/gif;base64,{{ project['molecular_img'] }}"></div>
+                <div class="width uk-text-right " style="padding: 0px"><img src="data:image/gif;base64,{{ project['molecular_img'] }}"></div>
             </div>
         </div>
         <div class="moreInfo uk-card uk-card-default uk-card-body">
