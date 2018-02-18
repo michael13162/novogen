@@ -4,6 +4,9 @@ from model.gen import gen
 import random
 import base64
 import cStringIO
+from elasticsearch import Elasticsearch
+
+es = Elasticsearch()
 app = Flask(__name__)
 
 
