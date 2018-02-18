@@ -35,7 +35,7 @@ class molecule:
         
         # Draw molecule
         scale = 20
-        img = Draw.MolToImage(mol, size=(155*scale, 68*scale), fitImage=True)
+        img = Draw.MolToImage(mol, size=(100*scale, 100*scale), fitImage=True)
         
         # Make img transparent background
         img = img.convert("RGBA")
