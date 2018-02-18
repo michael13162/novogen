@@ -68,7 +68,7 @@
             width: 60%;
             margin-left: 20%;
             margin-right: 20%;
-            height: 60px;
+            height: 70px;
             transition: transform .2s;
             color: #666666;
         }
@@ -101,8 +101,25 @@
             margin: auto;
         }
 
-        input:focus{
-            border: solid 2px gray;
+        input {
+            border-radius: 2px;
+            background: #f2f2f2;
+            border: 1px solid #f2f2f2;
+            color: #757575;
+            cursor: default;
+            font-size: 14px;
+            font-weight: bold;
+            width: 100px;
+            padding: 0 16px;
+            height: 36px;
+        }
+
+        input:hover {
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            background: #f8f8f8;
+            border: 1px solid #c6c6c6;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            color: #222;
         }
 
         /*.moreInfo:hover {*/
@@ -121,33 +138,40 @@
     </div>
 </nav>
 
-<div id="searchBarWrapper" class="uk-container-center ">
-    <input id="searchBar" type="text" onkeypress="getValue()" class="uk-form-medium uk-form-width-large uk-align-center" style="height: 25px;" placeholder="Enter the query...">
+<div id="searchBarWrapper" class="uk-container-center">
+    <input style="display:inline-block;margin-left:20%;margin-right:20%;" id="searchBar" type="input" onkeypress="getValue()"
+           class="uk-form-medium uk-form-width-large uk-align-center" placeholder="Enter a disease name">
 </div>
 
 <div class="searchResult">
 
     <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
         <div class="">
-            <a href="http://www.google.com"><div class="uk-text-left" style="color: #00b8ff;">Some title</div></a>
-            <div class="uk-text-center ">Some description</div>
-            <div class="uk-text-center ">Some Other</div>
+            <a href="http://www.google.com">
+                <div class="uk-text-left" style="color: #00b8ff;">Some title</div>
+            </a>
+            <div class="uk-text-left">Some description</div>
+            <div class="uk-text-left">Some Other</div>
         </div>
     </div>
 
     <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
         <div class="">
-            <a href="http://www.google.com"><div class="uk-text-left" style="color: #00b8ff;">Some title</div></a>
-            <div class="uk-text-center ">Some description</div>
-            <div class="uk-text-center ">Some Other</div>
+            <a href="http://www.google.com">
+                <div class="uk-text-left" style="color: #00b8ff;">Some title</div>
+            </a>
+            <div class="uk-text-left">Some description</div>
+            <div class="uk-text-left">Some Other</div>
         </div>
     </div>
 
     <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
         <div class="">
-            <a href="http://www.google.com"><div class="uk-text-left" style="color: #00b8ff;">Some title</div></a>
-            <div class="uk-text-center ">Some description</div>
-            <div class="uk-text-center ">Some Other</div>
+            <a href="http://www.google.com">
+                <div class="uk-text-left" style="color: #00b8ff;">Some title</div>
+            </a>
+            <div class="uk-text-left">Some description</div>
+            <div class="uk-text-left">Some Other</div>
         </div>
     </div>
 
@@ -166,12 +190,11 @@
 
     });
 
-    function getValue()
-    {
+    function getValue() {
         var edValue = document.getElementById("searchBar");
         var s = edValue.value;
 
-        if (move){
+        if (move) {
             $(".moleculeCard").animate({
                 marginTop: "-=400px",
                 opacity: 1
