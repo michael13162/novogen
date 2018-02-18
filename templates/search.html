@@ -188,7 +188,7 @@
         resizeDiv();
         move = true;
         var chosenSmilesNames = [];
-        $("#molResults div").click(function () {
+        $("#molResults").on("click", "#molResults div", function() {
             var drugName = $(this).find(".drugName").text();
 
             if (drugName != "" && !(chosenSmilesNames.includes(drugName))) {
