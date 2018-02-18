@@ -78,5 +78,5 @@ def perform_query(text):
 
 
 #write_pickle()
-ingest_scrape('RESULT.pkl')
+#ingest_scrape('RESULT.pkl')
 #print(perform_query('cold'))
