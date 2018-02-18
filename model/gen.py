@@ -10,6 +10,7 @@ from data import preprocessing
 from model import nn
 
 def gen(target_molecules):    
+    
     for mol in target_molecules:
         while(len(mol) > 50):
             mol = mol[:-1]
@@ -17,14 +18,8 @@ def gen(target_molecules):
     # Create preprocessing instance
     pp = preprocessing()            
 
-    # Load data from small data set
-    X_train, y_train, X_test, y_test = pp.load_data()
-
-    # Create & load model
-    model = nn(X_train, y_train, X_test, y_test)
-    model.load(pp)
-    
-        # Remove non characters
+            
+    # Remove non characters
     for mol in target_molecules:
         for char in mol:
             if char in pp.charset:
@@ -32,6 +27,13 @@ def gen(target_molecules):
             else:
                 mol = mol.replace(char, '')
                 print("Oopps. Removing bad char:", char)            
+                
+    # Load data from small data set
+    X_train, y_train, X_test, y_test = pp.load_data()
+
+    # Create & load model
+    model = nn(X_train, y_train, X_test, y_test)
+    model.load(pp)
     
     # Molecules to use as a seed for generating
     #target_molecules = ['NC=NC1CN1CO', 'CC1=CNCN2CC12', 'FC1CCC1(F)C=C', 'CC1=COnnnn1']
