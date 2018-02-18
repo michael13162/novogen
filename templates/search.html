@@ -148,10 +148,9 @@
 
 <div id="searchBarWrapper" class="uk-container-center">
     <input style="display:inline-block;margin-left:20%;margin-right:20%;" id="searchBar" type="input"
-           class="uk-form-medium uk-form-width-large uk-align-center" placeholder="Enter a disease name">
+           class="uk-form-medium uk-form-width-large uk-align-center" placeholder="Search...">
 </div>
-<button id="generate" style="margin-bottom: 10px;" class="uk-button uk-button-default uk-button-small">Generate using
-    these
+<button id="generate" style="margin-bottom: 10px;margin-left:50px" class="uk-button uk-button-default uk-button-small">Generate novel molecules
 </button>
 
 <div class="searchResult" style="display:inline-block; width: 100%;">
@@ -232,7 +231,7 @@
             $.ajax(settings).done(function (response) {
                 $("#molResults").html("");
                 for (var i = 0; i < response.length; i++) {
-                        $('#molResults').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'searchWrapper\'>            <a href=\'#\'>                <div class="uk-text-left smile" style=\'color: #00b8ff;\'>' + response[0] + '</div>            </a>            <div class="uk-text-left disease">' + response[1].disease + '</div>            <div class="uk-text-left drugName">' + response[1].drug_name + '</div>        </div>\n' + '    </div>');
+                        $('#molResults').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'searchWrapper\'>            <a href=\'#\'>                <div class="uk-text-left smile" style=\'color: #00b8ff;\'>' + response[i][0] + '</div>            </a>            <div class="uk-text-left disease">' + response[i][1].disease + '</div>            <div class="uk-text-left drugName">' + response[i][1].drug_name + '</div>        </div>\n' + '    </div>');
                         console.log("hit " + i);
                 }
 //                $('.moleculeCard').css('marginTop', '+=400px');
