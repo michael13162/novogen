@@ -64,6 +64,7 @@
             fr = new FileReader();
             fr.readAsDataURL(file);
             fr.onload = function (e) {
+                console.log(fr.result);
                 $("#container").html("<div uk-spinner style='margin-top: 40%; margin-left: 45%;'></div>");
                 $.ajax({
                     data: {"file": fr.result},
