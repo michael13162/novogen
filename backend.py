@@ -4,10 +4,9 @@ from model.gen import gen
 import random
 import base64
 import cStringIO
-from elasticsearch import Elasticsearch
-from urllib import unquote
+import elastic
 
-es = Elasticsearch()
+
 app = Flask(__name__)
 
 
@@ -206,6 +205,21 @@ def upload():
     )
 
     return response
+
+
+@app.route('/api/search', methods=['GET'])
+def perform_query():
+    query = request.args.get('query', '')
+    hits = elastic.perform_query(query)
+
+    response = app.response_class(
+        response=json.dumps(hits),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
+
 
 
 if __name__ == '__main__':
