@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, json
 from pymongo import MongoClient
-from model.gen import gen
+# from model.gen import gen
 import random
 import base64
 import cStringIO
@@ -200,4 +200,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=5000)
