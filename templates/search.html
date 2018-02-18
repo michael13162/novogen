@@ -139,7 +139,8 @@
 </nav>
 
 <div id="searchBarWrapper" class="uk-container-center">
-    <input style="display:inline-block;margin-left:20%;margin-right:20%;" id="searchBar" type="input" onkeypress="getValue()"
+    <input style="display:inline-block;margin-left:20%;margin-right:20%;" id="searchBar" type="input"
+           onkeypress="getValue()"
            class="uk-form-medium uk-form-width-large uk-align-center" placeholder="Enter a disease name">
 </div>
 
@@ -181,8 +182,22 @@
 <script>
     $(document).ready(function () {
         resizeDiv();
+        move = true;
+        var lastChange = Date.now();
+        $("#searchBar").on("change", function () {
+//            if (Date.now() )
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "/api/search?query=" + $("#searchBar").val(),
+                "method": "GET"
+            };
 
-        move = true
+            $.ajax(settings).done(function (response) {
+                console.log("look!");
+                console.log(response);
+            });
+        });
 //        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');
 //        console.log(data);
 //        console.log("hey");
