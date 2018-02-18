@@ -169,16 +169,8 @@
 <link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
 
 <script>
-    $(document).ready(function () {
-        resizeDiv();
-        $(".moleculeCard").animate(
-            {
-                marginTop: "-=400px",
-                opacity: 1
-            }, 700, "swing");
 
-
-        var cmlData = '<cml xmlns="http://www.xml-cml.org/schema"><molecule id="m1"><atomArray><atom id="a2" elementType="C" x2="7.493264658965051" y2="35.58088907877604"/><atom id="a3" elementType="O" x2="8.186084981992602" y2="35.18088907877604"/><atom id="a1" elementType="C" x2="6.800444335937501" y2="35.18088907877604"/></atomArray><bondArray><bond id="b2" order="S" atomRefs2="a2 a3"/><bond id="b1" order="S" atomRefs2="a2 a1"/></bondArray></molecule></cml>';
+    function drawMolecule(cmlData, parentId){
         var mol = Kekule.IO.loadFormatData(cmlData, 'cml');
 
         //////////////////////
@@ -187,7 +179,7 @@
         var is3D = (renderType === Kekule.Render.RendererType.R3D);
 
 // parent HTML element, we will draw inside it
-        var parentElem = document.getElementById('parent');
+        var parentElem = document.getElementById(parentId);
 // clear parent elem
         Kekule.DomUtils.clearChildContent(parentElem);
 
@@ -226,6 +218,65 @@
 
 // at last, draw the molecule to the center of context
         renderer.draw(context, {'x': dim.width / 2, 'y': dim.height / 2}, options);
+    }
+
+    $(document).ready(function () {
+        resizeDiv();
+        $(".moleculeCard").animate(
+            {
+                marginTop: "-=400px",
+                opacity: 1
+            }, 700, "swing");
+
+
+//        var cmlData = '<cml xmlns="http://www.xml-cml.org/schema"><molecule id="m1"><atomArray><atom id="a2" elementType="C" x2="7.493264658965051" y2="35.58088907877604"/><atom id="a3" elementType="O" x2="8.186084981992602" y2="35.18088907877604"/><atom id="a1" elementType="C" x2="6.800444335937501" y2="35.18088907877604"/></atomArray><bondArray><bond id="b2" order="S" atomRefs2="a2 a3"/><bond id="b1" order="S" atomRefs2="a2 a1"/></bondArray></molecule></cml>';
+//        var mol = Kekule.IO.loadFormatData(cmlData, 'cml');
+//
+//        //////////////////////
+//
+//        var renderType = Kekule.Render.RendererType.R3D;
+//        var is3D = (renderType === Kekule.Render.RendererType.R3D);
+//
+//// parent HTML element, we will draw inside it
+//        var parentElem = document.getElementById('parent');
+//// clear parent elem
+//        Kekule.DomUtils.clearChildContent(parentElem);
+//
+//// Get suitable draw bridge for 2D or 3D drawing
+//        var drawBridgeManager = is3D? Kekule.Render.DrawBridge3DMananger:
+//            Kekule.Render.DrawBridge2DMananger;
+//        var drawBridge = drawBridgeManager.getPreferredBridgeInstance();
+//
+//// then create render context by drawBridge first
+//        var dim = Kekule.HtmlElementUtils.getElemOffsetDimension(parentElem); // get width/height of parent element
+//        var context = drawBridge.createContext(parentElem, dim.width, dim.height);  // create context fulfill parent element
+//
+//// then create suitable renderer to render molecule object
+//        var rendererClass;
+//        if (is3D)
+//            rendererClass = Kekule.Render.get3DRendererClass(mol);
+//        else
+//            rendererClass = Kekule.Render.get2DRendererClass(mol);
+//        var renderer = new rendererClass(mol, drawBridge);  // create concrete renderer object and bind it with mol and draw bridge
+//
+//        /*
+//         prepare render options, options is a something like
+//
+//         var options = {
+//         atomColor: '#000000',
+//         bondColor: '#000000',
+//         defBondLength: 30
+//         ...
+//         };
+//         it is quite complex, so we use some magic here, generate the option object by default configuration of Kekule.js.
+//         */
+//
+//        var configObj = is3D? Kekule.Render.Render3DConfigs.getInstance():
+//            Kekule.Render.Render2DConfigs.getInstance();
+//        var options = Kekule.Render.RenderOptionUtils.convertConfigsToPlainHash(configObj);
+//
+//// at last, draw the molecule to the center of context
+//        renderer.draw(context, {'x': dim.width / 2, 'y': dim.height / 2}, options);
 
 
         Highcharts.chart('container-right-1', {
