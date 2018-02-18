@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../static/css/uikit.min.css"/>
     <script src="../static/js/uikit.min.js"></script>
     <script src="../static/js/uikit-icons.min.js"></script>
-    <!--<script src="Three.js"></script>-->
     <link rel="stylesheet" type="text/css" href="../static/css/kekule.css"/>
     <style>
 
@@ -122,6 +121,15 @@
             color: #222;
         }
 
+        .chosenResult {
+            width: 100%;
+            text-align: center;
+            color: white;
+            height: 90px;
+            margin-bottom: 15px;
+            /*background-color: lightgrey;*/
+        }
+
         /*.moreInfo:hover {*/
         /*width: 100%;*/
         /*height: 400px;*/
@@ -140,13 +148,38 @@
 
 <div id="searchBarWrapper" class="uk-container-center">
     <input style="display:inline-block;margin-left:20%;margin-right:20%;" id="searchBar" type="input"
-           onkeypress="getValue()"
            class="uk-form-medium uk-form-width-large uk-align-center" placeholder="Enter a disease name">
 </div>
+<button id="generate" style="margin-bottom: 10px;" class="uk-button uk-button-default uk-button-small">Generate using
+    these
+</button>
 
-<div class="searchResult">
-
-
+<div class="searchResult" style="display:inline-block; width: 100%;">
+    <div id="chosenMols" style="display:inline-block; margin-left: 10px; position:absolute;"></div>
+    <div id="molResults" style="display:inline-block; margin-right: 10px; width: 100%;">
+        <!--<div class="moleculeCard row uk-box-shadow-small uk-animation-toggle uk-hover"-->
+        <!--style="margin-top: 0; opacity: 1;">-->
+        <!--<div class="searchWrapper"><a href="#">-->
+        <!--<div class="uk-text-left smile" style="color: #00b8ff;">-->
+        <!--CC(C)(C1=CC=C(C=C1)C(CCCN2CCC(CC2)C(C3=CC=CC=C3)(C4=CC=CC=C4)O)O)C(=O)O.Cl-->
+        <!--</div>-->
+        <!--</a>-->
+        <!--<div class="uk-text-left disease">Nasal Obstruction</div>-->
+        <!--<div class="uk-text-left drugName">Allegra-D</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="moleculeCard row uk-box-shadow-small uk-animation-toggle uk-hover"-->
+        <!--style="margin-top: 0; opacity: 1;">-->
+        <!--<div class="searchWrapper"><a href="#">-->
+        <!--<div class="uk-text-left smile" style="color: #00b8ff;">-->
+        <!--CC(C)(C1=CC=C(C=C1)C(CCCN2CCC(CC2)C(C3=CC=CC=C3)(C4=CC=CC=C4)O)O)C(=O)O.Cl-->
+        <!--</div>-->
+        <!--</a>-->
+        <!--<div class="uk-text-left disease">Test 2</div>-->
+        <!--<div class="uk-text-left drugName">Test 3</div>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
 </div>
 <script src="../static/js/jquery-3.3.1.js"></script>
 <script src="../static/js/particles.js"></script>
@@ -154,7 +187,41 @@
     $(document).ready(function () {
         resizeDiv();
         move = true;
-        var lastChange = Date.now();
+        var chosenSmilesNames = [];
+        $("#molResults div").click(function () {
+            var drugName = $(this).find(".drugName").text();
+
+            if (drugName != "" && !(chosenSmilesNames.includes(drugName))) {
+                $("#chosenMols").prepend('<div class="chosenResult uk-background-primary uk-padding uk-panel" id="' + drugName + '">' + drugName + '</div>');
+                chosenSmilesNames.push(drugName);
+            }
+        });
+        $("#chosenMols").on("click", ".chosenResult", function () {
+            $(this).remove();
+            chosenSmilesNames.splice(chosenSmilesNames.indexOf($(this).find(".drugName").text()), 1);
+        });
+
+        $("#generate").click(function () {
+
+            var smiles = [];
+            $(".smile").each(function (index) {
+                smiles.push($(this).text())
+            });
+            console.log(smiles);
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "api/project/upload",
+                "method": "POST",
+                "processData": false,
+                "data": JSON.stringify({"file": smiles})
+            };
+
+            $.ajax(settings).done(function (response) {
+                window.location.replace("/home");
+            });
+        });
         $("#searchBar").on("input", function () {
             var settings = {
                 "async": true,
@@ -162,7 +229,6 @@
                 "url": "/api/search?query=" + encodeURIComponent($("#searchBar").val()),
                 "method": "GET"
             };
-            console.log("beginning...");
             $.ajax(settings).done(function (response) {
 //                console.log("considering whether to go...");
 //                if (Date.now.getMilliseconds() - lastChange.getMilliseconds() > 500) {
@@ -172,12 +238,13 @@
 //                    else {
 //                        return;
 //                    }
-                //TODO in here you can safely use this information to update the rest of the page
-                console.log("look!");
+                    //TODO in here you can safely use this information to update the rest of the page
+                    console.log("look!");
                 console.log(response);
-                for(var i=0;i<response.length;i++){
-                   $('.searchResult').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'\'>            <a href=\'http://www.google.com\'>                <div class=\'uk-text-left\' style=\'color: #00b8ff;\'>'+ response[0][0]+'</div>            </a>            <div class=\'uk-text-left\'>'+response[0][1].disease+'</div>            <div class=\'uk-text-left\'>' + response[0][1].drug_name +'</div>        </div>\n' + '    </div>');
+                for (var i = 0; i < response.length; i++) {
+                    $('.searchResult').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'\'>            <a href=\'http://www.google.com\'>                <div class=\'uk-text-left\' style=\'color: #00b8ff;\'>' + response[0][0] + '</div>            </a>            <div class=\'uk-text-left\'>' + response[0][1].disease + '</div>            <div class=\'uk-text-left\'>' + response[0][1].drug_name + '</div>        </div>\n' + '    </div>');
                 }
+<<<<<<< HEAD
 		if(move){
 		$('.moleculeCard').animate({
 			marginTop: '-=400px',
@@ -190,12 +257,11 @@
 		}
             });
         });
-//        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');
-//        console.log(data);
-//        console.log("hey");
-
-
     });
+    //        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');
+    //        console.log(data);
+    //        console.log("hey");
+
 
     function getValue() {
         var edValue = document.getElementById("searchBar");

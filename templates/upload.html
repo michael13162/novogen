@@ -25,9 +25,7 @@
 
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-            <li><a href="#">Upload</a></li>
-            <li><a class="uk-active" href="#">Projects</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="search">Search</a></li>
         </ul>
 
     </div>
@@ -66,7 +64,7 @@
             fr.readAsText(file);
             fr.onload = function (e) {
                 console.log(fr.result.split('\n'));
-                $("#container").html("<div uk-spinner style='margin-top: 10%; margin-left: 45%;'></div>");
+                $("#container").html("<div uk-spinner='ratio: 4' style='margin-top: 10%; margin-left: 45%;'></div>");
 
 
                 var settings = {
