@@ -155,7 +155,10 @@ def project():
 
 @app.route('/api/project/upload', methods=['POST'])
 def upload():
-    file = request.files['file']
+    #file = request.files['file']
+    json = request.get_json()
+    print(json)
+    file = json['file']
     lines = list(file.read().splitlines())
     print(lines)
     molecules = gen(lines)
