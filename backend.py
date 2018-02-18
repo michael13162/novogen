@@ -10,8 +10,6 @@ from urllib import unquote
 es = Elasticsearch()
 app = Flask(__name__)
 
-j = []
-a = 0
 
 class safe:
     def set(self, values):
@@ -19,6 +17,7 @@ class safe:
         return
 
 my_safe = safe()
+
 
 @app.route('/')
 def hello_world():
@@ -31,16 +30,7 @@ def search():
 
 @app.route('/home')
 def home():
-    print('111111')
-    #json1 = request.args.get('json')
-#    print(request.query_string)
-    #json1 =json.loads(unquote(request.query_string.partition('&')[0])) 
-    #json1 = unquote(request.query_string.partition('&')[0])  
-    #print('2222222')
-    #print(json1)
     print(my_safe.values)
-    print(a)
-    #obj = json.loads(json1)
     return render_template('home.html', projects=my_safe.values['json'])
 
 @app.route('/upload')
@@ -179,7 +169,7 @@ def upload():
                     'num_h_donors': m.num_h_donors,
                     'num_h_acceptors': m.num_h_acceptors,
                     'molecular_weight': m.molecular_weight,
-                    'molecular_img': 'a'}
+                    'molecular_img': img_str}
 
         res['json'].append(molecule)
 
@@ -206,11 +196,9 @@ def upload():
         }
     )
     '''
-    j = res
-    a = 11
-    print(j)
+
     my_safe.values = res
-    print('1112123')
+
     response = app.response_class(
         response=json.dumps(res),
         status=200,
