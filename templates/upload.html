@@ -67,16 +67,16 @@
                 console.log(fr.result);
                 $("#container").html("<div uk-spinner style='margin-top: 40%; margin-left: 45%;'></div>");
                 $.ajax({
-                    method: "POST",
-                    crossDomain: true,
-                    processData: false,
-                    headers: {
+                    "method": "POST",
+                    "crossDomain": true,
+                    "processData": false,
+                    "headers": {
                         "Content-Type": "application/json",
                         "Cache-Control": "no-cache"
                     },
-                    data: {"file": "f"},
-                    url: "api/project/upload",
-                    success: function (data) {
+                    "data": {"file": "f"},
+                    "url": "api/project/upload",
+                    "success": function (data, textStatus, jqXHR) {
                         window.location.replace("/home.html?" + $.param(data));
                     }
                 })
