@@ -17,7 +17,10 @@ def gen(target_molecules):
             target_molecules[i] = mol
             
     # Create preprocessing instance
-    pp = preprocessing()         
+    pp = preprocessing()    
+
+    # Load data from small data set
+    X_train, y_train, X_test, y_test = pp.load_data()     
     
     # Remove non characters
     for i in range(0, len(target_molecules)):
@@ -30,9 +33,6 @@ def gen(target_molecules):
                 target_molecules[i] = mol
                 print("Oopps. Removing bad char:", char)   
                          
-    # Load data from small data set
-    X_train, y_train, X_test, y_test = pp.load_data()
-
     # Create & load model
     model = nn(X_train, y_train, X_test, y_test)
     model.load(pp)
