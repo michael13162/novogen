@@ -68,9 +68,17 @@
             width: 60%;
             margin-left: 20%;
             margin-right: 20%;
-            height: 125px;
+            height: 60px;
             transition: transform .2s;
             color: #666666;
+        }
+
+        #searchBarWrapper {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 60%;
+            margin-left: 20%;
+            margin-right: 20%;
         }
 
         .uk-grid {
@@ -93,6 +101,10 @@
             margin: auto;
         }
 
+        input:focus{
+            border: solid 2px gray;
+        }
+
         /*.moreInfo:hover {*/
         /*width: 100%;*/
         /*height: 400px;*/
@@ -109,10 +121,31 @@
     </div>
 </nav>
 
+<div id="searchBarWrapper" class="uk-container-center ">
+    <input id="searchBar" type="text" onkeypress="getValue()" class="uk-form-medium uk-form-width-large uk-align-center" style="height: 25px;" placeholder="Enter the query...">
+</div>
+
 <div class="searchResult">
+
     <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
         <div class="">
-            <a href="google.com"><div class="uk-text-left" style="color: #00b8ff;">Some title</div></a>
+            <a href="http://www.google.com"><div class="uk-text-left" style="color: #00b8ff;">Some title</div></a>
+            <div class="uk-text-center ">Some description</div>
+            <div class="uk-text-center ">Some Other</div>
+        </div>
+    </div>
+
+    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
+        <div class="">
+            <a href="http://www.google.com"><div class="uk-text-left" style="color: #00b8ff;">Some title</div></a>
+            <div class="uk-text-center ">Some description</div>
+            <div class="uk-text-center ">Some Other</div>
+        </div>
+    </div>
+
+    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
+        <div class="">
+            <a href="http://www.google.com"><div class="uk-text-left" style="color: #00b8ff;">Some title</div></a>
             <div class="uk-text-center ">Some description</div>
             <div class="uk-text-center ">Some Other</div>
         </div>
@@ -124,17 +157,31 @@
 <script>
     $(document).ready(function () {
         resizeDiv();
-        $(".moleculeCard").animate(
-            {
-                marginTop: "-=400px",
-                opacity: 1
-            }, 700, "swing");
 
+        move = true
 //        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');
 //        console.log(data);
 //        console.log("hey");
+
+
     });
 
+    function getValue()
+    {
+        var edValue = document.getElementById("searchBar");
+        var s = edValue.value;
+
+        if (move){
+            $(".moleculeCard").animate({
+                marginTop: "-=400px",
+                opacity: 1
+            }, 700, "swing");
+            move = false;
+        }
+
+        //var s = $("#edValue").val();
+        //$("#lblValue").text(s);
+    }
     window.onresize = function (event) {
         resizeDiv();
     };

@@ -12,6 +12,10 @@ def hello_world():
     return render_template('index.html')
 
 
+@app.route('/search')
+def search():
+    return render_template('search.html')
+
 @app.route('/home')
 def home():
     data = []
