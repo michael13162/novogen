@@ -242,7 +242,7 @@
                 console.log("look!");
                 console.log(response);
                 for (var i = 0; i < response.length; i++) {
-                    $('.searchResult').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'\'>            <a href=\'http://www.google.com\'>                <div class=\'uk-text-left\' style=\'color: #00b8ff;\'>' + response[0][0] + '</div>            </a>            <div class=\'uk-text-left\'>' + response[0][1].disease + '</div>            <div class=\'uk-text-left\'>' + response[0][1].drug_name + '</div>        </div>\n' + '    </div>');
+                    $('#searchResult').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'searchWrapper\'>            <a href=\'#\'>                <div class="uk-text-left smile" style=\'color: #00b8ff;\'>' + response[0] + '</div>            </a>            <div class="uk-text-left disease">' + response[1].disease + '</div>            <div class="uk-text-left drugName">' + response[1].drug_name + '</div>        </div>\n' + '    </div>');
                 }
                 if (move) {
                     $('.moleculeCard').animate({
