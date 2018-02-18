@@ -185,15 +185,23 @@
         move = true;
         var lastChange = Date.now();
         $("#searchBar").on("change", function () {
-//            if (Date.now() )
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "/api/search?query=" + $("#searchBar").val(),
+                "url": "/api/search?query=" + encodeURIComponent($("#searchBar").val()),
                 "method": "GET"
             };
-
+            console.log("beginning...");
             $.ajax(settings).done(function (response) {
+//                console.log("considering whether to go...");
+//                if (Date.now.getMilliseconds() - lastChange.getMilliseconds() > 500) {
+//                    if (lastChange.getMilliseconds() < Date.now().getMilliseconds()) {
+//                        lastChange = Date.now();
+//                    }
+//                    else {
+//                        return;
+//                    }
+                //TODO in here you can safely use this information to update the rest of the page
                 console.log("look!");
                 console.log(response);
             });
