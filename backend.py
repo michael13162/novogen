@@ -4,6 +4,9 @@ from pymongo import MongoClient
 import random
 import base64
 import cStringIO
+from elasticsearch import Elasticsearch
+
+es = Elasticsearch()
 app = Flask(__name__)
 
 
