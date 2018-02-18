@@ -56,6 +56,7 @@ def scrape_letter(letter):
 	results = extract_content(soup)
 	return results
 
+'''
 res = []
 for letter in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']:
 	print("Searching section", letter)
@@ -67,3 +68,4 @@ with open("RESULT.pkl", 'wb') as output:
 	print "Saving..."
 	pickle.dump(res, output)	
 print("script done!")		
+'''
