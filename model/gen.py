@@ -28,6 +28,10 @@ def gen(target_molecules):
             else:
                 mol = mol.replace(char, '')
                 print("Oopps. Removing bad char:", char)
+                
+    for mol in target_molecules:
+        while(len(mol) > 50):
+            mol = mol[:-1]
 
     # Molecules to use as a seed for generating
     #target_molecules = ['NC=NC1CN1CO', 'CC1=CNCN2CC12', 'FC1CCC1(F)C=C', 'CC1=COnnnn1']
