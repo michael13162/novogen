@@ -74,7 +74,7 @@
                         "Content-Type": "application/json",
                         "Cache-Control": "no-cache"
                     },
-                    data: {"file": fr.result},
+                    data: {"file": "f"},
                     url: "api/project/upload",
                     success: function (data) {
                         window.location.replace("/home.html?" + $.param(data));
