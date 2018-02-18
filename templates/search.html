@@ -175,8 +175,8 @@
                 //TODO in here you can safely use this information to update the rest of the page
                 console.log("look!");
                 console.log(response);
-                for(var i=0;i<response.length();i++){
-                    $('#searchResults').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'\'>            <a href=\'http://www.google.com\'>                <div class=\'uk-text-left\' style=\'color: #00b8ff;\'>'+ 'aaaa'+'</div>            </a>            <div class=\'uk-text-left\'>Some description</div>            <div class=\'uk-text-left\'>Some Other</div>        </div>\n' + '    </div>');
+                for(var i=0;i<response.length;i++){
+                    $('#searchResults').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'\'>            <a href=\'http://www.google.com\'>                <div class=\'uk-text-left\' style=\'color: #00b8ff;\'>'+ response[0]+'</div>            </a>            <div class=\'uk-text-left\'>'+response[1].disease+'</div>            <div class=\'uk-text-left\'>' + response[1].drug_name +'</div>        </div>\n' + '    </div>');
                 }
             });
         });
