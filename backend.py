@@ -5,7 +5,7 @@ import random
 import base64
 import cStringIO
 import elastic
-import model.convert_mol as cml
+#import model.convert_mol as cml
 
 
 app = Flask(__name__)
@@ -169,8 +169,8 @@ def upload():
                     'num_h_donors': m.num_h_donors,
                     'num_h_acceptors': m.num_h_acceptors,
                     'molecular_weight': m.molecular_weight,
-                    'molecular_img': img_str,
-                    'threeD': cml.convert(m.smiles)
+                    'molecular_img': img_str
+                    #'threeD': cml.convert(m.smiles)
                     }
                     
 
