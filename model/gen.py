@@ -29,7 +29,7 @@ def gen(target_molecules):
     #target_molecules = ["CCN(C)C(=O)OC1=CC=CC(=C1)C(C)N(C)C", "CC12CC3CC(C1)(CC(C3)(C2)N)C", "CN1CCC23C=CC(CC2OC4=C(C=CC(=C34)C1)OC)O"]
 
     # Generate a molecule
-    molecules = model.generate(target=target_molecules, preprocessing_instance=pp, hit_rate=200)
+    molecules = model.generate(target=target_molecules, preprocessing_instance=pp, hit_rate=50)
 
     return molecules
 

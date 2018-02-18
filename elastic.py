@@ -1,6 +1,8 @@
 import requests
 from elasticsearch import Elasticsearch
 import json
+import pickle
+from model.scrape import Molecule
 
 
 es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
@@ -26,17 +28,35 @@ def test():
         print "%s: %s" % (key, value)
 
 
-
-def ingest_scrape():
-    molecules = pickle()
-
-    i = 1
-    for molecule in molecules:
-        es.index(index='novogen', doc_type='molecules', id=i, body=json.loads('{"text": ' + molecule.first + ', "smiles": ' + molecule.second + '}'))
-        i = i + 1
+def write_pickle():
+    example1 = Molecule('cancer', 'drug_a', 'test', 'SLFKJDL')
+    example2 = Molecule('allgeries', 'drug_b', 'test', 'lLKEJLKEJ')
+    example3 = Molecule('cold', 'drug_c', 'test', 'SLLKD')
+    pickle.dump([example1, example2, example3], open('test.pkl', 'wb'))
 
 
-def search(text):
+def ingest_scrape(f):
+    with open(f, 'rb') as p:
+        molecules = pickle.load(p)
+
+        i = 1
+        for molecule in molecules:
+            '''
+            print(molecule[0])
+            print(molecule[1])
+            return
+            '''
+
+            text = molecule.disease + ' ' + molecule.drug_name + ' ' + molecule.smiles + ' ' + molecule.molecule_name
+            insert = '{"text": "' + text + '", "smiles": "' + molecule.smiles + '", "disease": "' + molecule.disease + '", "drug_name": "' + molecule.drug_name + '", "molecule_name": "' + molecule.molecule_name + '"}'
+            print(insert)
+            ret = es.index(index='novogen', doc_type='molecules', id=i, body=json.loads(insert))
+            print(ret)
+            print('\n')
+            i = i + 1
+
+
+def perform_query(text):
     ret = es.search(index="novogen", body={
         "query": {
             "match" : {
@@ -47,10 +67,15 @@ def search(text):
 
     hits = {}
     for hit in ret['hits']['hits']:
-        hits[hit['_source']['smiles']] = hit['_score']
+        hits[hit['_source']['smiles']] = {'score': hit['_score'],
+                                          'disease': hit['disease'],
+                                          'drug_name': hit['drug_name'],
+                                          'molecule_name': hit['molecule_name']}
 
-    return sorted(hits.iteritems(), key=lambda (k,v): (v,k), reverse=True)
+    return sorted(hits.iteritems(), key=lambda (k,v): (v['score'],k), reverse=True)
 
 
-test()
-
+#ingest_scrape()
+write_pickle()
+ingest_scrape('test.pkl')
+print(perform_query('drug'))

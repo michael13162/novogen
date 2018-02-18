@@ -34,7 +34,8 @@ class molecule:
         self.molecular_weight = Chem.rdMolDescriptors._CalcMolWt(mol)
         
         # Draw molecule
-        img = Draw.MolToImage(mol, size=(500, 500), fitImage=True)
+        scale = 2
+        img = Draw.MolToImage(mol, size=(155*scale, 68*scale), fitImage=True)
         self.molecular_img = img
         
         return

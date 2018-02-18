@@ -146,35 +146,6 @@
 
 <div class="searchResult">
 
-    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-        <div class="">
-            <a href="http://www.google.com">
-                <div class="uk-text-left" style="color: #00b8ff;">Some title</div>
-            </a>
-            <div class="uk-text-left">Some description</div>
-            <div class="uk-text-left">Some Other</div>
-        </div>
-    </div>
-
-    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-        <div class="">
-            <a href="http://www.google.com">
-                <div class="uk-text-left" style="color: #00b8ff;">Some title</div>
-            </a>
-            <div class="uk-text-left">Some description</div>
-            <div class="uk-text-left">Some Other</div>
-        </div>
-    </div>
-
-    <div class="moleculeCard row uk-box-shadow-small uk-animation-toggle">
-        <div class="">
-            <a href="http://www.google.com">
-                <div class="uk-text-left" style="color: #00b8ff;">Some title</div>
-            </a>
-            <div class="uk-text-left">Some description</div>
-            <div class="uk-text-left">Some Other</div>
-        </div>
-    </div>
 
 </div>
 <script src="../static/js/jquery-3.3.1.js"></script>
@@ -204,6 +175,9 @@
                 //TODO in here you can safely use this information to update the rest of the page
                 console.log("look!");
                 console.log(response);
+                for(var i=0;i<response.length();i++){
+                    $('#searchResults').append('<div class=\'moleculeCard row uk-box-shadow-small uk-animation-toggle\'>        <div class=\'\'>            <a href=\'http://www.google.com\'>                <div class=\'uk-text-left\' style=\'color: #00b8ff;\'>'+ 'aaaa'+'</div>            </a>            <div class=\'uk-text-left\'>Some description</div>            <div class=\'uk-text-left\'>Some Other</div>        </div>\n' + '    </div>');
+                }
             });
         });
 //        var data = Kekule.IO.saveFormatData("CC12CC3CC(C1)(CC(C3)(C2)N)C", 'smi');

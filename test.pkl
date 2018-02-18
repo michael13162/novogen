@@ -1,0 +1,29 @@
+(lp0
+(lp1
+S'this drug causes cancer'
+p2
+aS'LELFJOILW'
+p3
+aS'disease A'
+p4
+aS'description A'
+p5
+aa(lp6
+S'this is also a drug'
+p7
+aS'LWLWOJ42'
+p8
+aS'disease B'
+p9
+aS'description B'
+p10
+aa(lp11
+S'test druggggg'
+p12
+aS'LKJFELKL'
+p13
+aS'disease C'
+p14
+aS'description C'
+p15
+aa.
