@@ -67,10 +67,15 @@
                 console.log(fr.result);
                 $("#container").html("<div uk-spinner style='margin-top: 40%; margin-left: 45%;'></div>");
                 $.ajax({
-                    data: {"file": fr.result},
                     method: "POST",
+                    crossDomain: true,
+                    processData: false,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Cache-Control": "no-cache"
+                    },
+                    data: {"file": fr.result},
                     url: "api/project/upload",
-                    contentType: "application/json",
                     success: function (data) {
                         window.location.replace("/home.html?" + $.param(data));
                     }
